@@ -24,6 +24,44 @@ export const brandEditFormSchema = z.object({
 		.nonempty('이미지가 최소 1장 이상 필요합니다.')
 });
 
+export const reviewEditFormSchema = z.object({
+	_id: z
+		.string()
+		.or(z.instanceof(ObjectId))
+		.transform(val => (typeof val === 'string' ? new ObjectId(val) : val)),
+	userEmail: z.string().email('올바른 이메일 주소를 입력해주세요.').optional(),
+	productItemId: z
+		.string()
+		.min(1, '상품 아이템 ID를 입력해주세요.')
+		.transform(val => new ObjectId(val)),
+	orderId: z
+		.string()
+		.min(1, '주문 ID를 입력해주세요.')
+		.transform(val => new ObjectId(val)),
+	score: z.coerce.number().min(1, '별점은 최소 1점입니다.').max(5, '별점은 최대 5점입니다.'),
+	content: z.object({
+		text: z.string().max(1000, '리뷰 내용은 1000자 이내로 입력해주세요.'),
+		images: z.array(
+			z.object({
+				state: z.string(),
+				key: z.string(),
+				file: z
+					.instanceof(File)
+					.superRefine((file, ctx) => {
+						if (!file) return;
+						if (file.size > 10 * 1024 * 1024) {
+							ctx.addIssue({
+								code: z.ZodIssueCode.custom,
+								message: `파일명 "${file.name}"이 최대 크기 10MB를 초과했습니다. (현재: ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+							});
+						}
+					})
+					.nullish()
+			})
+		)
+	})
+});
+
 export const productEditFormSchema = z
 	.object({
 		_id: z.string().transform(val => (val ? new ObjectId(val) : new ObjectId())),

@@ -1,23 +1,44 @@
+import { ReviewFormData } from '@/app/(route)/(desktop)/admin/review/edit/[id]/ReviewForm';
 import { HTTPError } from '../HTTPError';
+import { omit } from 'lodash';
+import { useSystemAlertStore } from '@/app/store';
 
-export const updateReview = async (
-	postId: string,
-	text: string,
-	images: string[],
-	score: string
-): Promise<{ message: string }> => {
-	const response = await fetch(`/api/review/updateReview`, {
-		method: 'POST',
-		body: JSON.stringify({
-			postId,
-			text,
-			images,
-			score
-		})
+export const updateReview = async (data: ReviewFormData, isNew: boolean) => {
+	const formData = new FormData();
+
+	// isNew 정보 추가
+	formData.append('isNew', String(isNew));
+
+	Object.entries(omit(data, 'files')).map(([key, value]) => {
+		if (typeof value == 'object' || Array.isArray(value)) {
+			formData.append(key, JSON.stringify(value));
+		} else {
+			formData.append(key, String(value));
+		}
 	});
+
+	if (data.files) {
+		Array.from(data.files).forEach(file => {
+			formData.append('files', file);
+		});
+	}
+
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/review/updateReview`,
+		{
+			method: 'PUT',
+			body: formData
+		}
+	);
+
 	const result = await response.json();
 
-	if (!response.ok) throw new HTTPError(result.message, response.status, response.url);
+	if (!response.ok) {
+		useSystemAlertStore.getState().push(result.message || 'Error occurred');
+		throw new HTTPError(result.message, response.status, response.url);
+	}
+
+	useSystemAlertStore.getState().push(result.message);
 
 	return result;
 };

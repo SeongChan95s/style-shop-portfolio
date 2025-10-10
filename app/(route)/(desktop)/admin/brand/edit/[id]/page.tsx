@@ -11,30 +11,13 @@ export default function BrandEditPage() {
 	const brandId = params.id as string;
 	const isNew = brandId === 'new';
 
-	const emptyBrand: Brand = {
-		_id: '',
-		name: {
-			main: '',
-			sub: ''
-		},
-		desc: '',
-		country: '',
-		since: 0,
-		images: [],
-		wishUsers: []
-	};
-
 	const { data, isPending, isError } = useQuery({
 		queryFn: () => getBrands({ match: { _id: brandId } }),
 		queryKey: ['brand', brandId],
-		enabled: !!brandId && !isNew
+		enabled: !isNew
 	});
 
-	if (isNew) {
-		return <BrandForm initialBrand={emptyBrand} isNew={true} />;
-	}
-
-	if (isPending) {
+	if (isPending && !isNew) {
 		return (
 			<div className="inner">
 				<div>브랜드 정보를 불러오는 중...</div>
@@ -42,7 +25,7 @@ export default function BrandEditPage() {
 		);
 	}
 
-	if (isError || !data?.success) {
+	if (isError) {
 		return (
 			<div className="inner">
 				<div>브랜드를 찾을 수 없습니다.</div>
@@ -50,5 +33,10 @@ export default function BrandEditPage() {
 		);
 	}
 
-	return <BrandForm initialBrand={data.data[0]} isNew={false} />;
+	return (
+		<BrandForm
+			initialBrand={data && data.success ? data.data[0] : undefined}
+			isNew={isNew}
+		/>
+	);
 }

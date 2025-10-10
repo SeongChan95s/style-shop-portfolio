@@ -11,39 +11,13 @@ export default function ReviewEditPage() {
 	const reviewId = params.id as string;
 	const isNew = reviewId === 'new';
 
-	const emptyReview: Review<string> = {
-		_id: '',
-		content: {
-			images: [],
-			text: ''
-		},
-		score: 5,
-		author: {
-			_id: '',
-			email: '',
-			name: '',
-			role: ''
-		},
-		timestamp: '',
-		productItemId: '',
-		productGroupId: '',
-		orderId: '',
-		comment: 0,
-		wishUsers: [],
-		viewUsers: []
-	};
-
 	const { data, isPending, isError } = useQuery({
 		queryFn: () => getReviews({ match: { _id: reviewId } }),
 		queryKey: ['review', reviewId],
-		enabled: !!reviewId && !isNew
+		enabled: !isNew
 	});
 
-	if (isNew) {
-		return <ReviewForm initialReview={emptyReview} isNew={true} />;
-	}
-
-	if (isPending) {
+	if (isPending && !isNew) {
 		return (
 			<div className="inner">
 				<div>리뷰 정보를 불러오는 중...</div>
@@ -51,7 +25,7 @@ export default function ReviewEditPage() {
 		);
 	}
 
-	if (isError || !data?.success) {
+	if (isError) {
 		return (
 			<div className="inner">
 				<div>리뷰를 찾을 수 없습니다.</div>
@@ -59,5 +33,10 @@ export default function ReviewEditPage() {
 		);
 	}
 
-	return <ReviewForm initialReview={data.data[0]} isNew={false} />;
+	return (
+		<ReviewForm
+			initialReview={data && data.success ? data.data[0] : undefined}
+			isNew={isNew}
+		/>
+	);
 }
