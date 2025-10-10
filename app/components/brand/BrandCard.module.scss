@@ -1,0 +1,23 @@
+.brandCard {
+	.header {
+		display: flex;
+		justify-content: space-between;
+		padding: 1.2rem var(--inner);
+
+		.left {
+			display: flex;
+			align-items: center;
+			gap: 0.8rem;
+			.imageWrap {
+				padding: 0.4rem;
+				border-radius: 3.2rem;
+				background-color: $black-color;
+				overflow: hidden;
+			}
+
+			h5 {
+				@include title-2;
+			}
+		}
+	}
+}

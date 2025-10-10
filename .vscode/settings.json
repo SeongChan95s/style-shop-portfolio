@@ -1,0 +1,23 @@
+{
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	},
+
+	"[html]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.stylelint": "never"
+		}
+	},
+	"editor.formatOnSave": true,
+	"stylelint.validate": ["css", "scss"],
+	"mdb.presetConnections": [
+		{
+			"name": "Preset Connection",
+			"connectionString": "mongodb://localhost:27017"
+		}
+	]
+}

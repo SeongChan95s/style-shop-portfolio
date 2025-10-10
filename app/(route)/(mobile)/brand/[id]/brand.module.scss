@@ -1,0 +1,148 @@
+// Brand Header
+.brandHeader {
+	position: relative;
+	width: 100%;
+
+	.coverImage {
+		width: 100%;
+		height: 100%;
+
+		.imageWrap {
+			height: 24rem;
+		}
+
+		.empty {
+			height: 10rem;
+			background-color: var(--black-color-light);
+		}
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.1) 0%,
+			rgba(0, 0, 0, 0.4) 100%
+		);
+		z-index: 2;
+		backdrop-filter: blur(4px);
+	}
+
+	.brandInfo {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 2rem;
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		z-index: 3;
+
+		.titleBox {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			color: var(--white-color);
+			text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+			.logo {
+				position: relative;
+				width: 4.2rem;
+				height: 4.2rem;
+				margin-right: 1.3rem;
+
+				img {
+					object-fit: contain;
+				}
+			}
+
+			.title {
+				.mainName {
+					font-size: 2rem;
+					font-weight: 500;
+					line-height: 1.3;
+				}
+
+				.subName {
+					font-size: 1.2rem;
+					font-weight: 400;
+					margin: 0;
+					opacity: 0.9;
+				}
+			}
+		}
+
+		.actions {
+			display: flex;
+			gap: 1.2rem;
+
+			.shareButton {
+				color: #fff;
+			}
+
+			.wishButton {
+				color: var(--white-color);
+				backdrop-filter: blur(10px);
+				&.wish {
+					color: var(--red-color-normal);
+				}
+			}
+		}
+	}
+}
+
+// Brand Info
+.brandInfoSection {
+	padding: 2rem;
+	background: var(--white-color-dim);
+
+	.stats {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 2.4rem;
+		padding: 1.6rem;
+		background: var(--white-color-dark);
+		border-radius: 1.2rem;
+
+		.statItem {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 4px;
+
+			.statLabel {
+				@include label-3;
+				color: #6c757d;
+			}
+
+			.statValue {
+				@include title-1;
+				color: #212529;
+			}
+		}
+	}
+
+	.desc {
+		margin-bottom: 2.4rem;
+		@include body-3;
+		color: var(--black-color-dim);
+	}
+}
+
+// Brand Products
+.brandProducts {
+	.productWrap {
+	}
+}
+
+.empty {
+	@include body-1;
+	text-align: center;
+	padding: 4rem 2rem;
+	color: #6c757d;
+}

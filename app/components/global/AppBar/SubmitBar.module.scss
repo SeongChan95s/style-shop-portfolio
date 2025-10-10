@@ -1,0 +1,10 @@
+.submitBar {
+	height: 4.6rem;
+	:global(.app-bar-container) {
+		background-color: var(--black-color-normal);
+	}
+}
+
+.disabled :global(.app-bar-container) {
+	background-color: var(--gray-color-normal);
+}

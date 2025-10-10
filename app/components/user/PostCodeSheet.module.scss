@@ -1,0 +1,39 @@
+.postCodeSheet {
+	header :global(.inner) {
+		display: flex;
+		justify-content: space-between;
+
+		:global(.icon) {
+			color: var(--black-color-dim);
+		}
+	}
+
+	h3 {
+		@include headline-4;
+	}
+
+	:global(.bottomSheetHeader) {
+		background-color: #ffffff;
+	}
+
+	:global(.bottomSheetBody) {
+		flex: 1;
+		padding-left: 0;
+		padding-right: 0;
+		background-color: #ffffff;
+	}
+
+	.embed {
+		:global(#__daum__layer_1) {
+			background-color: transparent !important;
+		}
+
+		:global(.form_search .post_search) {
+			background-color: transparent !important;
+		}
+
+		:global(.info_body) {
+			background-color: transparent;
+		}
+	}
+}

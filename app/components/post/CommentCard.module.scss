@@ -1,0 +1,25 @@
+.commentCard {
+	.cardContainer {
+		padding: 1rem 0;
+	}
+
+	& ~ .commentCard {
+		.cardContainer {
+			border-top: 1px solid var(--gray-color-dim);
+		}
+	}
+
+	.cardHeader {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 0.2rem;
+		.author {
+			@include label-2;
+			color: var(--gray-color-dark);
+		}
+	}
+
+	.cardBody {
+		@include body-3;
+	}
+}

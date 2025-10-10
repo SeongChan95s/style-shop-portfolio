@@ -1,0 +1,85 @@
+.reviewList {
+	.filterMenu {
+		position: sticky;
+		top: calc(4.8rem + ios-safe-area(top));
+		display: flex;
+		align-items: center;
+		gap: 1.4rem;
+		padding: 0.7rem var(--inner);
+		background-color: var(--white-color-dim);
+		z-index: $z-index-fab;
+
+		.right {
+			display: flex;
+			margin-left: auto;
+			gap: 0.8rem;
+
+			.selectSort {
+				flex: none;
+				width: 7.1rem;
+
+				:global(.placeholderContainer) {
+					padding: 0;
+					background-color: transparent;
+
+					:global(.inputWrap) {
+						padding: 0;
+						height: 2.4rem;
+					}
+				}
+			}
+
+			.filterButton {
+				width: 2.4rem;
+				height: 2.4rem;
+				padding: 0.2rem;
+				color: var(--black-color-light);
+			}
+		}
+	}
+
+	.postList {
+		padding: 1.2rem 0 0;
+		> li {
+			position: relative;
+			padding-top: 1.6rem;
+			padding-bottom: 1.6rem;
+
+			~ li {
+				&::after {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: var(--inner);
+					right: var(--inner);
+					height: 0.5px;
+					background-color: var(--gray-color-dim);
+				}
+			}
+		}
+	}
+
+	.buttonWrap {
+		padding: 0 var(--inner);
+
+		:global(.button ~ .button) {
+			margin-top: 1.4rem;
+		}
+
+		.moreButton {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+			gap: 0.2rem;
+			@include label-2;
+			color: var(--black-color-normal);
+
+			:global(.icon) {
+				transform: rotate(90deg);
+				width: 1.6rem;
+				height: 1.6rem;
+			}
+		}
+	}
+}

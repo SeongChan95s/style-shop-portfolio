@@ -1,0 +1,53 @@
+.colorPicker {
+	display: flex;
+	li {
+		cursor: pointer;
+	}
+}
+
+// size
+.sm {
+	gap: 0.6rem;
+
+	li {
+		width: 0.8rem;
+		height: 0.8rem;
+		border-radius: 0.8rem;
+	}
+}
+.md {
+	gap: 0.4rem;
+
+	li {
+		width: 1rem;
+		height: 1rem;
+		border-radius: 1rem;
+	}
+}
+.lg {
+	gap: 0.6rem;
+
+	li {
+		width: 1.9rem;
+		height: 1.9rem;
+		border-radius: 1.9rem;
+	}
+}
+
+// colors
+.블랙 {
+	background-color: $black-color-dim;
+}
+.차콜 {
+	background-color: $gray-color-dark;
+}
+.화이트 {
+	background-color: $white-color-dark;
+	border: 1px solid $gray-color-dim;
+}
+.카키 {
+	background-color: #596e52;
+}
+.블루 {
+	background-color: #5590e9;
+}

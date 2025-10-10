@@ -1,0 +1,336 @@
+#details-layout {
+	h3 {
+		@include headline-3;
+	}
+}
+
+.productVisual {
+	height: 60svh;
+	position: relative;
+}
+
+.brand {
+	:global(.inner) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 1.4rem;
+		padding-bottom: 1.4rem;
+		border-bottom: 1px solid var(--gray-color-dim);
+	}
+
+	.brandName {
+		display: flex;
+		gap: 0.3rem;
+		@include label-1;
+		font-weight: 500;
+		line-height: 1;
+		color: var(--black-color-light);
+		cursor: pointer;
+
+		:global(.icon) {
+			width: 1.4rem;
+			height: 1.4rem;
+			color: var(--black-color-light);
+		}
+	}
+
+	.wish {
+		display: flex;
+		align-items: center;
+		gap: 0.1rem;
+		font-size: 13px;
+		font-weight: 500;
+		line-height: 1.8rem;
+
+		span {
+			color: var(--black-color-dim);
+		}
+
+		.iconButtonOutlined {
+			:global(.icon) {
+				color: var(--gray-color-dark);
+			}
+		}
+
+		.iconButtonFilled {
+			:global(.icon) {
+				color: $red-color-normal;
+			}
+		}
+	}
+}
+
+.overview {
+	padding-bottom: 3.2rem;
+
+	.content {
+		padding-bottom: 2.6rem;
+	}
+
+	.breadcrumb {
+		margin-top: 1.6rem;
+	}
+
+	.name {
+		margin-top: 1.8rem;
+		font-size: 1.7rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.values {
+		display: flex;
+		align-items: center;
+		margin-top: 0.7rem;
+
+		.score {
+			display: flex;
+			align-items: center;
+
+			:global(.icon) {
+				width: 1.6rem;
+				height: 1.6rem;
+				color: $yellow-color-normal;
+			}
+
+			.label {
+				margin-left: 0.4rem;
+				@include label-1;
+				line-height: 1;
+				color: var(--black-color-light);
+			}
+
+			.reviewCount {
+				text-decoration: underline;
+				@include label-2;
+				color: var(--gray-color-dark);
+				margin-left: 0.5rem;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.price {
+		margin-top: 2.4rem;
+
+		.cost {
+			font-size: 1.3rem;
+			font-weight: 500;
+			text-decoration: line-through;
+			color: var(--gray-color-normal);
+		}
+
+		.payment {
+			font-size: 2rem;
+			font-weight: 700;
+
+			.discount {
+				color: $red-color-normal;
+			}
+
+			.discountedPrice {
+				margin-left: 0.5rem;
+			}
+		}
+	}
+
+	.colorPicker {
+		margin-top: 1.2rem;
+	}
+
+	.info {
+		margin-top: 2.6rem;
+		font-size: 1.3rem;
+		font-weight: 400;
+
+		dl {
+			display: flex;
+			flex-wrap: wrap;
+
+			& ~ dl {
+				margin-top: 1.4rem;
+			}
+
+			> div {
+				flex: 1;
+			}
+		}
+
+		dt {
+			width: 5.8rem;
+			margin-right: 4.2rem;
+			color: var(--black-color-dark);
+			white-space: nowrap;
+		}
+
+		dd {
+			word-break: keep-all;
+			color: var(--black-color-light);
+
+			& ~ dd {
+				margin-top: 0.2rem;
+			}
+		}
+	}
+}
+
+.mainDescription {
+	.contents {
+		position: relative;
+
+		img {
+			position: relative;
+			width: 100%;
+			height: auto;
+		}
+
+		.main {
+			position: relative;
+
+			&:has(.moreButton) {
+				&::after {
+					content: '';
+					position: absolute;
+					bottom: 0px;
+					left: 0px;
+					width: 100%;
+					height: 200px;
+					background: linear-gradient(
+						rgba(255, 255, 255, 0) 0%,
+						rgb(255, 255, 255) 70%,
+						rgb(255, 255, 255) 100%
+					);
+					z-index: 1;
+				}
+
+				:global(.icon) {
+					transform: rotate(90deg) scale(0.7);
+				}
+			}
+
+			.moreButton {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				bottom: 0;
+				z-index: 2;
+			}
+		}
+	}
+}
+
+.purchase {
+	.purchaseAppBar {
+		height: 5rem;
+
+		:global(.app-bar-container) {
+			background-color: #161616;
+		}
+
+		.buttonWrap {
+			display: flex;
+			gap: 0.8rem;
+
+			.button-add-like,
+			.buttonShare {
+				color: $white-color-normal;
+			}
+		}
+
+		.container {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			gap: 1.2rem;
+			padding-left: calc(ios-safe-area(left) + 1.2rem);
+			padding-right: calc(ios-safe-area(right) + 1.2rem);
+		}
+
+		.buttonPurchase {
+			height: 100%;
+			flex: 1;
+			color: #fff;
+
+			@include label-1;
+		}
+	}
+
+	.purchaseSelectSheet {
+		.selectWrap {
+			margin-bottom: 1.2rem;
+
+			> li ~ li {
+				margin-top: 1.2rem;
+			}
+
+			:global(.disable) {
+				text-decoration: line-through;
+			}
+
+			.stock {
+				margin-left: 0.4rem;
+				@include body-4;
+				color: var(--gray-color-dark);
+			}
+		}
+
+		.btnWrap {
+			display: flex;
+			gap: 12px;
+
+			button {
+				flex: 1;
+			}
+		}
+	}
+}
+
+// Skeleton
+.brandSkeleton {
+	display: flex;
+	justify-content: space-between;
+	margin: 1.6rem 0;
+}
+.overviewSkeleton {
+	margin-top: 1.7rem;
+	.content {
+		height: 20rem;
+
+		:global(.skeleton):nth-child(2) {
+			margin-top: 2rem;
+		}
+		:global(.skeleton):nth-child(4) {
+			margin-top: 2rem;
+		}
+	}
+
+	.info {
+		--font-size: 1.3rem;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		row-gap: 1.3rem;
+		margin-top: 2.4rem;
+		:global(.skeleton) {
+			margin-top: 0;
+		}
+	}
+}
+.skeletonReviewItem {
+	margin: 2rem 0;
+	padding: 1rem 0;
+	border-bottom: 1px solid #eee;
+}
+
+.skeletonReviewHeader {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.skeletonPurchaseButtons {
+	display: flex;
+	gap: 1rem;
+	padding: 1rem;
+}

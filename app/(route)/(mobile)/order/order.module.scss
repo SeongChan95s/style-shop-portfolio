@@ -1,0 +1,132 @@
+.processPage {
+	padding-bottom: $section-layout-lg;
+
+	h3 {
+		@include headline-4;
+	}
+
+	.delivery {
+		.wrap {
+			.header {
+				display: flex;
+				justify-content: space-between;
+			}
+			.body {
+				margin-top: 0.2rem;
+			}
+		}
+
+		.name {
+			@include headline-4;
+		}
+
+		.post,
+		.tel {
+			@include body-3;
+		}
+		.tel {
+			margin-top: 0.4rem;
+		}
+		.select {
+			margin-top: 1.4rem;
+		}
+	}
+
+	.product {
+		.list {
+			li ~ li {
+				margin-top: 1.8rem;
+			}
+		}
+	}
+
+	.payment {
+		.method {
+			> li {
+				display: flex;
+				& ~ li {
+					margin-top: 1rem;
+				}
+				&:has(.methodDepth02) {
+					display: block;
+				}
+			}
+
+			.methodDepth02 {
+				display: grid;
+				gap: 0.6rem;
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+
+		.radioButton {
+			:global(.icon) {
+				margin-left: auto;
+			}
+		}
+	}
+
+	.optionSheet {
+		li ~ li {
+			margin-top: 1.2rem;
+		}
+
+		:global(.disable) {
+			text-decoration: line-through;
+		}
+		.stock {
+			margin-left: 0.8rem;
+			@include body-4;
+			color: var(--gray-color-dark);
+		}
+		.counter {
+			margin-top: 1.4rem;
+		}
+		.changeButton {
+			margin-top: 1.2rem;
+		}
+	}
+
+	.purchase {
+		.discount {
+			margin-right: 0.3rem;
+			text-decoration: line-through;
+			opacity: 0.4;
+		}
+	}
+}
+
+.orderDetailPage {
+	h4 {
+		@include headline-4;
+	}
+
+	.wrap {
+		> ul > li {
+			@include divider(lg);
+		}
+	}
+
+	.date {
+		@include headline-4;
+	}
+	.id {
+		@include body-3;
+		margin-top: 0.2rem;
+		color: var(--gray-color-darker);
+	}
+
+	.name {
+		@include title-1;
+	}
+	.address,
+	.tel {
+		@include body-4;
+	}
+	.address {
+		margin-top: 0.7rem;
+	}
+	.tel {
+		margin-top: 0.2rem;
+	}
+}

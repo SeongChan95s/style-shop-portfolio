@@ -1,0 +1,42 @@
+name: Update Order Status
+
+on:
+  schedule:
+    # 5분마다 실행
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # 수동 실행
+
+jobs:
+  update-order-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Order Status Update API
+        id: api-call
+        run: |
+          echo "🚀 Calling API at $(date)"
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json" \
+            ${{ secrets.PRODUCTION_URL }}/api/cron/updateOrderStatus)
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "📊 HTTP Status: $HTTP_CODE"
+          echo "📝 Response Body: $BODY"
+
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "❌ API call failed with status $HTTP_CODE"
+            exit 1
+          fi
+
+          echo "✅ API call successful"
+
+      - name: Log completion
+        if: success()
+        run: echo "✅ Order status update completed successfully at $(date)"
+
+      - name: Log failure
+        if: failure()
+        run: echo "❌ Order status update failed at $(date)"

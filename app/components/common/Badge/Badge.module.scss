@@ -1,0 +1,37 @@
+.badge {
+	position: relative;
+
+	.count {
+		display: flex;
+		justify-content: center;
+		align-items: baseline;
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-radius: 3rem;
+		transform: translate(30%, -30%);
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	// size
+	.sm {
+		width: 1.8rem;
+		height: 1.8rem;
+		@include label-3;
+		line-height: 1.8rem;
+	}
+
+	.lg {
+		width: 2.4rem;
+		height: 2.4rem;
+		@include label-2;
+		line-height: 2.4rem;
+	}
+
+	// color
+	.red {
+		background: #ff4d4d;
+		color: $white-color-normal;
+	}
+}

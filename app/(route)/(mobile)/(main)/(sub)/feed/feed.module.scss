@@ -1,0 +1,110 @@
+.timeline {
+	.viewControl {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 0.4rem var(--inner);
+		.selectSort {
+			width: 8.5rem;
+		}
+	}
+
+	:global(.skeleton) {
+		display: block;
+		grid-column-end: span 3;
+		grid-row-end: span 3;
+	}
+
+	&.col3 {
+		.contents {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+
+			.thumbnail {
+				position: relative;
+				aspect-ratio: 125/150;
+
+				.wishButton {
+					position: absolute;
+					bottom: 0.4rem;
+					right: 0.4rem;
+				}
+			}
+			.container {
+				@include hidden;
+			}
+
+			:global(.skeleton) {
+				display: block;
+				aspect-ratio: 125/150;
+			}
+			:global(.skeleton) ~ :global(.skeleton) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	&.col2 {
+		.contents {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+
+			.thumbnail {
+				position: relative;
+				aspect-ratio: 125/150;
+
+				.wishButton {
+					position: absolute;
+					bottom: 0.4rem;
+					right: 0.4rem;
+				}
+			}
+			.container {
+				@include hidden;
+			}
+
+			:global(.skeleton) {
+				display: block;
+				aspect-ratio: 125/150;
+			}
+			:global(.skeleton) ~ :global(.skeleton) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	&.col1 {
+		.contents {
+			.thumbnail {
+				position: relative;
+				aspect-ratio: 125/150;
+
+				.wishButton {
+					position: absolute;
+					bottom: 0.4rem;
+					right: 0.4rem;
+				}
+			}
+			.container {
+				padding: 0.8rem var(--inner) 2rem;
+				.actions {
+					display: flex;
+					gap: 0.8rem;
+					padding: 0.7rem 0;
+				}
+				.text {
+					margin-top: 0.7rem;
+					@include body-3;
+				}
+			}
+
+			:global(.skeleton) {
+				display: block;
+				aspect-ratio: 125/150;
+			}
+			:global(.skeleton) ~ :global(.skeleton) {
+				margin-top: 0;
+			}
+		}
+	}
+}

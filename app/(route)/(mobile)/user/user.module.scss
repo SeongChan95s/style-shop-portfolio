@@ -1,0 +1,71 @@
+.personalInfoPage,
+.userStylePage {
+	h3 {
+		@include headline-3;
+	}
+	h4 {
+		@include title-1;
+	}
+
+	.form {
+		article ~ article {
+			margin-top: 4.2rem;
+		}
+
+		ul {
+			li {
+				~ li {
+					margin-top: 2.4rem;
+				}
+			}
+		}
+
+		.genderWrap {
+			display: flex;
+			gap: 0.6rem;
+			> :global(.radioButton) {
+				flex: 1;
+			}
+		}
+	}
+}
+
+.userAddressCreatePage {
+	.depth1 {
+		> li ~ li {
+			margin-top: 1.6rem;
+		}
+	}
+	.depth2 {
+		> li ~ li {
+			margin-top: 0.6rem;
+		}
+	}
+}
+
+.userOrderPage {
+	.userOrderCard {
+		@include divider(xl);
+		.header {
+			.top {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.date {
+				@include headline-4;
+			}
+			.status {
+				margin-top: 0.8rem;
+				@include label-2;
+				color: var(--black-color-light);
+			}
+
+			.detailLink {
+				@include label-2;
+				text-decoration: underline;
+				color: var(--gray-color-dark);
+			}
+		}
+	}
+}

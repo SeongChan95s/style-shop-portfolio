@@ -1,0 +1,45 @@
+.calculation {
+	ul {
+		padding: $section-layout-md 0;
+	}
+
+	li {
+		display: flex;
+		justify-content: space-between;
+
+		.label {
+			font-size: 1.4rem;
+			color: var(--black-color-normal);
+			font-weight: 500;
+		}
+		.amount {
+			@include body-1;
+			font-weight: 500;
+			letter-spacing: 0.01rem;
+		}
+
+		.tip {
+			margin-right: 0.5rem;
+			@include label-3;
+			font-weight: 400;
+			color: var(--gray-color-normal);
+		}
+
+		& ~ li {
+			margin-top: 0.5rem;
+		}
+
+		&:nth-child(4) {
+			padding-top: 1.2rem;
+			border-top: 0.5px solid var(--gray-color-dim);
+			margin-top: 1.2rem;
+		}
+	}
+}
+
+// skeleton
+.calculationSkeleton {
+	.amount :global(.skeleton) {
+		width: 7rem;
+	}
+}

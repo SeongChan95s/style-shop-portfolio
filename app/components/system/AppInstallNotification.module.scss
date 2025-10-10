@@ -1,0 +1,45 @@
+.appInstallNotification {
+	position: fixed;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	bottom: calc(ios-safe-area(bottom) + 6rem);
+	@include layout-width;
+	filter: $drop-shadow-sm-top;
+	background-color: var(--white-color-dim);
+	z-index: $app-bar;
+
+	.inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: var(--inner);
+	}
+
+	header {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+
+		h3 {
+			@include title-2;
+		}
+	}
+
+	.appIcon {
+		width: 3.6rem;
+		height: 3.6rem;
+		border-radius: 0.6rem;
+		overflow: hidden;
+	}
+
+	.buttonWrap {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+
+		.closeIcon {
+			color: var(--gray-color-dark);
+		}
+	}
+}

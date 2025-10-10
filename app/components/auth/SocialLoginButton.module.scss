@@ -1,0 +1,10 @@
+.socialLoginButton {
+	width: 100%;
+	padding: 1.2rem 0;
+	text-align: left;
+	gap: 0.2rem;
+	@include label-1;
+	span {
+		line-height: 1;
+	}
+}

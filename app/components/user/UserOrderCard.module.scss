@@ -1,0 +1,50 @@
+// layout
+.card {
+	.products {
+		margin-top: 1.6rem;
+		.product {
+			& ~ .product {
+				margin-top: 2.1rem;
+			}
+			.body {
+				display: flex;
+				gap: 1.2rem;
+			}
+
+			.footer {
+				margin-top: 1.2rem;
+				display: flex;
+				gap: 0.8rem;
+			}
+		}
+	}
+}
+
+// element
+.product {
+	.thumbnail {
+		width: 22%;
+	}
+	.description {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+	.brand {
+		@include label-4;
+	}
+	.name {
+		margin-top: 0.1rem;
+		@include title-2;
+		font-weight: 500;
+		color: var(--black-color-dim);
+		@include text-wrap(2);
+	}
+	.option {
+		word-spacing: -0.07em;
+		margin-top: 0.3rem;
+		@include label-2;
+		color: var(--gray-color-dark);
+	}
+}

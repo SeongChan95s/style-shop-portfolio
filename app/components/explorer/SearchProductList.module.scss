@@ -1,0 +1,15 @@
+.searchProductList {
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		row-gap: 1.2rem;
+	}
+}
+
+.dataLoadObserver {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+}

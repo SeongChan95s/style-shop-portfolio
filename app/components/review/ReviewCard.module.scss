@@ -1,0 +1,129 @@
+.card {
+	.cardBody {
+		margin-bottom: 1rem;
+	}
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 1.2rem;
+	padding: 0 var(--inner);
+
+	.profileImg {
+		flex: none;
+		width: 2.7rem;
+		height: 2.7rem;
+		margin-right: 0.7rem;
+		font-size: 1.3rem;
+		line-height: 2.7rem;
+		text-align: center;
+		border-radius: 99px;
+		color: var(--white-color-dim);
+		background: var(--gray-color-light);
+	}
+
+	.profile {
+		line-height: 1;
+
+		.userId {
+			@include label-2;
+			margin-bottom: 0.35rem;
+		}
+		.info {
+			display: flex;
+			font-size: 1.1rem;
+			font-weight: 400;
+			color: var(--black-color-light);
+
+			.body,
+			.option {
+				display: flex;
+			}
+
+			.body:has(li) {
+				margin-right: 0.8rem;
+			}
+			li ~ li {
+				margin-left: 0.25rem;
+
+				&::before {
+					content: '·';
+					font-weight: 700;
+					margin-right: 0.25rem;
+				}
+			}
+		}
+	}
+
+	.reviewMenu {
+		margin-left: auto;
+	}
+}
+
+.container {
+	cursor: pointer;
+	.thumbSwiper {
+		margin-bottom: 1.3rem;
+
+		:global(.swiper-slide) {
+			position: relative;
+			width: calc(33% - 0.6rem);
+			margin-right: 0.6rem;
+
+			.thumbnail {
+				.thumbSwiper {
+					overflow: visible;
+				}
+			}
+		}
+	}
+
+	.scoreRating {
+		--activated-color: var(--black-color-normal);
+		padding-left: var(--inner);
+	}
+
+	.textContainer {
+		margin-top: 0.4rem;
+		padding: 0 var(--inner);
+		@include body-3;
+	}
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0 var(--inner);
+	margin-top: 0.8rem;
+
+	.commentButton {
+		display: flex;
+		align-items: center;
+		gap: 0.2rem;
+		color: var(--gray-color-dark);
+		@include label-2;
+
+		.label {
+			line-height: 1;
+		}
+	}
+}
+
+.card.wrap {
+	background: var(--white-color-normal);
+
+	&::after {
+		background-color: transparent !important;
+	}
+	+ .card::after {
+		background-color: transparent !important;
+	}
+
+	:global(.swiper-slide) {
+		width: calc(100% - 0.8rem);
+		margin-right: 0.8rem;
+	}
+}

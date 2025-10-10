@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__filesystem__list_directory",
+      "mcp__filesystem__read_file",
+      "mcp__filesystem__directory_tree",
+      "Bash(npm run build:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "mcp__filesystem__read_multiple_files",
+      "mcp__notionApi__API-get-block-children",
+      "Bash(npx tsc:*)",
+      "Bash(curl:*)",
+      "mcp__puppeteer__puppeteer_evaluate",
+      "Read(//Users/chanseong/Desktop/개인/Creative/project/style-shop-types/app/(route)/(mobile)/review/edit/[id]/**)"
+    ],
+    "deny": []
+  },
+  "outputStyle": "Explanatory"
+}

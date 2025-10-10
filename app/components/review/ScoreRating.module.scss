@@ -1,0 +1,39 @@
+.scoreRating {
+	--activated-color: var(--yellow-color-normal);
+	--deactivated-color: var(--gray-color-light);
+	display: flex;
+	align-items: center;
+	width: fit-content;
+	cursor: pointer;
+}
+.star {
+	display: flex;
+	align-items: center;
+	transition: transform 0.1s;
+}
+
+.scoreRating:not(.read-only) {
+	.star:not([tabindex='-1']):hover {
+		transform: scale(1.15);
+	}
+}
+
+// size
+.sm {
+	.star {
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+}
+.md {
+	.star {
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+}
+.lg {
+	.star {
+		width: 2.8rem;
+		height: 2.8rem;
+	}
+}

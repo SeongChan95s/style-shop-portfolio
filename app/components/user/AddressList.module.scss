@@ -1,0 +1,30 @@
+.addressList {
+	.addressWrap {
+		margin-top: 2rem;
+	}
+
+	.addressCard {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.8rem;
+		padding: 1.2rem 0;
+		font-size: 1.3rem;
+		font-weight: 400;
+
+		@include divider();
+
+		.cardHeader {
+			display: flex;
+			align-items: center;
+			gap: 0.8rem;
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+
+		.cardbody {
+			* ~ * {
+				margin-top: 0.3rem;
+			}
+		}
+	}
+}

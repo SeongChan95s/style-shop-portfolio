@@ -1,0 +1,84 @@
+.explorerLayout {
+	.stickyMenu {
+		position: sticky;
+		top: calc(4.8rem + ios-safe-area(top));
+		padding: 0.6rem var(--inner) 0;
+		background-color: var(--white-color-light);
+		z-index: $app-bar;
+		border-bottom: 1px solid var(--gray-color-dim);
+	}
+	.tab {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	h3 {
+		@include headline-4;
+	}
+}
+
+.quick {
+	.recentSearch {
+		overflow-x: clip;
+		.chip {
+			:global(.icon) {
+				color: var(--gray-color-dark);
+			}
+		}
+	}
+
+	.productList {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.6rem;
+	}
+}
+
+.categoryMenu {
+	display: flex;
+	align-items: flex-start;
+	height: calc(100dvh - (15.1rem + ios-safe-area(top) + ios-safe-area(bottom)));
+
+	.depth02TabHeader {
+		height: 100%;
+		overflow-y: auto;
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.depth02TabPane {
+			@include label-2;
+		}
+	}
+	.depth02TabBody {
+		overflow-y: auto;
+		height: 100%;
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	.depth02Item {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0px, 1fr));
+		gap: 1.2rem 0.4rem;
+		padding: var(--inner);
+
+		.link {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			p {
+				@include body-4;
+				white-space: nowrap;
+				font-weight: 500;
+				color: var(--black-color-dim);
+			}
+		}
+	}
+}

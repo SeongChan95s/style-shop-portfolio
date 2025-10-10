@@ -1,0 +1,14 @@
+import { FetchResponse } from '@/app/types';
+import { HTTPError } from '../HTTPError';
+
+export const getPathFiles = async (path: string): Promise<FetchResponse<string[]>> => {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/s3/getPathFiles?path=${path}`
+	);
+
+	const result = await response.json();
+
+	if (!response.ok) throw new HTTPError(result.message, response.status, response.url);
+
+	return result;
+};

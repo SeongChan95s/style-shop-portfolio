@@ -1,0 +1,67 @@
+.wishButton {
+	display: flex;
+	align-items: center;
+	width: auto;
+	height: auto;
+	color: $gray-color-dark;
+
+	.icon {
+		&:global(.active) {
+			color: #ff4555;
+		}
+	}
+
+	.label {
+		color: var(--black-color-normal);
+		line-height: 1;
+	}
+}
+
+// size
+.sm {
+	gap: 0.2rem;
+
+	.icon {
+		width: 1.8rem;
+		height: 1.8rem;
+	}
+	.label {
+		@include label-2;
+	}
+}
+.md {
+	gap: 0.3rem;
+	.icon {
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+	.label {
+		font-size: 1.4rem;
+		font-weight: 500;
+	}
+}
+.lg {
+	.icon {
+		width: 2.6rem;
+		height: 2.6rem;
+	}
+	.label {
+		@include label-2;
+	}
+}
+
+// variant
+.standard {
+	.icon {
+		color: $gray-color-normal;
+	}
+}
+.thumb {
+	.icon {
+		color: $white-color-normal;
+		filter: $drop-shadow-sm;
+	}
+	.label {
+		@include hidden;
+	}
+}

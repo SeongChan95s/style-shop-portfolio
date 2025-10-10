@@ -1,0 +1,75 @@
+.searchContentList {
+	.group {
+		margin: 1.8rem 0;
+		h4 {
+			@include headline-4;
+			margin-bottom: 1.2rem;
+		}
+	}
+
+	.매거진,
+	.쇼케이스 {
+		.contents {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1.6rem 0;
+			.thumbnail {
+				position: relative;
+				width: 100%;
+				height: auto;
+				aspect-ratio: 1 / 0.8;
+				overflow: hidden;
+			}
+			.container {
+				margin-top: 1.2rem;
+				padding: 0 var(--inner);
+				.type {
+					color: var(--gray-color-darker);
+					@include label-3;
+				}
+				h5 {
+					margin-top: 0.2rem;
+					@include title-2;
+				}
+				.body {
+					margin-top: 0.5rem;
+					font-size: 1.2rem;
+					font-weight: 400;
+					color: var(--gray-color-darker);
+					@include text-wrap(2);
+				}
+			}
+		}
+	}
+
+	.이벤트 {
+		.contents {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem 0.8rem;
+			padding: 0 var(--inner);
+			a {
+				display: flex;
+				justify-self: center;
+				align-items: center;
+				gap: 0.4rem;
+				height: 3.8rem;
+				padding: 0 1.4rem;
+				border: 1px solid var(--gray-color-dim);
+				border-radius: $border-radius-sm;
+				font-size: 1.3rem;
+				font-weight: 500;
+				overflow: visible;
+				white-space: nowrap;
+			}
+		}
+	}
+}
+
+.dataLoadObserver {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+}
