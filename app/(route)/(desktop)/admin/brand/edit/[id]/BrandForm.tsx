@@ -135,7 +135,13 @@ export default function BrandForm({ initialBrand, isNew = false }: BrandFormProp
 						</li>
 						<li className={styles.category}>
 							<h5>소개</h5>
-							<Textarea {...register('desc')} label="소개" count fill maxLength={300} />
+							<Controller
+								name="desc"
+								control={control}
+								render={({ field }) => (
+									<Textarea label="소개" count fill maxLength={300} {...field} />
+								)}
+							/>
 						</li>
 						<li className={styles.keywords}>
 							<h5>이미지</h5>

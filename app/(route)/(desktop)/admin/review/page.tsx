@@ -41,7 +41,7 @@ const TABLE_COLUMNS: TableColumn[] = [
 export default function AdminReviewPage() {
 	const router = useRouter();
 
-	const limit = 30;
+	const limit = 10;
 
 	const [search, _setSearch] = useState('');
 

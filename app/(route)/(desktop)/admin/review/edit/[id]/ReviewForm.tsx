@@ -5,7 +5,9 @@ import { Textarea } from '@/app/components/common/Textarea';
 import { Button } from '@/app/components/common/Button';
 import { useSystemAlertStore } from '@/app/store';
 import { useQueryClient } from '@tanstack/react-query';
-import ImagePicker, { ImagePickerItem } from '@/app/components/common/ImagePicker/ImagePicker';
+import ImagePicker, {
+	ImagePickerItem
+} from '@/app/components/common/ImagePicker/ImagePicker';
 import { deleteReview } from '@/app/services/review/deleteReview';
 import { useRouter } from 'next/navigation';
 import { Review } from '@/app/types';
@@ -86,13 +88,7 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<ul className={styles.groupWrap}>
 						<li className={styles.id}>
-							<Input
-								{...register('_id')}
-								label="id"
-								variant="outlined"
-								fill
-								readOnly
-							/>
+							<Input {...register('_id')} label="id" variant="outlined" fill readOnly />
 						</li>
 
 						<li className={styles.name}>
@@ -154,12 +150,12 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 
 						<li className={styles.category}>
 							<h5>리뷰 내용</h5>
-							<Textarea
-								{...register('content.text')}
-								label="리뷰 내용"
-								count
-								fill
-								maxLength={1000}
+							<Controller
+								control={control}
+								name="content.text"
+								render={({ field }) => (
+									<Textarea label="리뷰 내용" count fill maxLength={1000} {...field} />
+								)}
 							/>
 						</li>
 

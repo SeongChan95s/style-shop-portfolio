@@ -42,7 +42,7 @@ const TABLE_COLUMNS: TableColumn[] = [
 export default function AdminProductPage() {
 	const router = useRouter();
 
-	const limit = { group: 30 };
+	const limit = { group: 10 };
 
 	const [search, _setSearch] = useState('');
 

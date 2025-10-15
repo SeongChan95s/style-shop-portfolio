@@ -5,12 +5,10 @@ import {
 	getCoreRowModel,
 	getSortedRowModel,
 	getFilteredRowModel,
-	getPaginationRowModel,
 	flexRender,
 	ColumnDef,
 	SortingState,
-	ColumnFiltersState,
-	PaginationState
+	ColumnFiltersState
 } from '@tanstack/react-table';
 import { useState, useMemo } from 'react';
 import styles from './Table.module.scss';
@@ -28,8 +26,6 @@ interface TableProps<T> {
 	data: T[];
 	columns: TableColumn[];
 	onClickRow?: (item: T) => void;
-	pagination?: boolean;
-	pageSize?: number;
 }
 
 const getNestedValue = (obj: Record<string, unknown>, path: string): unknown => {
@@ -47,19 +43,9 @@ const getNestedValue = (obj: Record<string, unknown>, path: string): unknown => 
 	return result;
 };
 
-export default function Table<T>({
-	data,
-	columns,
-	onClickRow,
-	pagination = false,
-	pageSize = 10
-}: TableProps<T>) {
+export default function Table<T>({ data, columns, onClickRow }: TableProps<T>) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const [paginationState, setPaginationState] = useState<PaginationState>({
-		pageIndex: 0,
-		pageSize
-	});
 
 	const tableColumns = useMemo<ColumnDef<T>[]>(() => {
 		const cols: ColumnDef<T>[] = [
@@ -101,18 +87,15 @@ export default function Table<T>({
 		columns: tableColumns,
 		state: {
 			sorting,
-			columnFilters,
-			...(pagination && { pagination: paginationState })
+			columnFilters
 		},
 		enableColumnResizing: true,
 		columnResizeMode: 'onChange',
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
-		...(pagination && { onPaginationChange: setPaginationState }),
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		...(pagination && { getPaginationRowModel: getPaginationRowModel() })
+		getFilteredRowModel: getFilteredRowModel()
 	});
 
 	return (
@@ -160,15 +143,7 @@ export default function Table<T>({
 							{row.getVisibleCells().map(cell => (
 								<td key={cell.id}>
 									{cell.column.id === 'index'
-										? (() => {
-												const currentPageIndex = pagination
-													? table.getState().pagination.pageIndex
-													: 0;
-												const pageSize = pagination
-													? table.getState().pagination.pageSize
-													: data.length;
-												return currentPageIndex * pageSize + displayIndex + 1;
-											})()
+										? displayIndex + 1
 										: flexRender(cell.column.columnDef.cell, cell.getContext())}
 								</td>
 							))}
@@ -176,35 +151,6 @@ export default function Table<T>({
 					))}
 				</tbody>
 			</table>
-
-			{pagination && (
-				<div className={styles.pagination}>
-					<button
-						onClick={() => table.setPageIndex(0)}
-						disabled={!table.getCanPreviousPage()}>
-						{'<<'}
-					</button>
-					<button
-						onClick={() => table.previousPage()}
-						disabled={!table.getCanPreviousPage()}>
-						{'<'}
-					</button>
-					<span>
-						페이지{' '}
-						<strong>
-							{table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
-						</strong>
-					</span>
-					<button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-						{'>'}
-					</button>
-					<button
-						onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-						disabled={!table.getCanNextPage()}>
-						{'>>'}
-					</button>
-				</div>
-			)}
 		</div>
 	);
 }
