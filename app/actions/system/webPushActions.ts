@@ -42,3 +42,30 @@ export async function sendNotification({ title, body }: SendNotification) {
 		return { success: false, error: 'Failed to send notification' };
 	}
 }
+
+export async function sendNotificationToUser({
+	subscription: userSubscription,
+	title,
+	body,
+	url
+}: {
+	subscription: PushSubscription;
+	title: string;
+	body: string;
+	url?: string;
+}) {
+	try {
+		await webpush.sendNotification(
+			userSubscription as unknown as webpush.PushSubscription,
+			JSON.stringify({
+				title,
+				body,
+				url
+			})
+		);
+		return { success: true };
+	} catch (error) {
+		console.error('Error sending push notification:', error);
+		return { success: false, error: 'Failed to send notification' };
+	}
+}

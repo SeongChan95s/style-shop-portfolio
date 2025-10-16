@@ -7,16 +7,21 @@ export async function signUpWithCredentials(initialData: unknown, formData: Form
 	const {
 		userEmail: email,
 		userPassword: password,
-		userName: name
+		userName: name,
+		subscription
 	} = Object.fromEntries(formData.entries()) as {
 		userEmail: string;
 		userPassword: string;
 		userName: string;
+		subscription?: string;
 	};
+
+	// subscription은 JSON 문자열로 전달되므로 파싱
+	const parsedSubscription = subscription ? JSON.parse(subscription) : null;
 
 	const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/signUp`, {
 		method: 'POST',
-		body: JSON.stringify({ email, password, name })
+		body: JSON.stringify({ email, password, name, subscription: parsedSubscription })
 	});
 	const result = await response.json();
 

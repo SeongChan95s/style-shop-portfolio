@@ -1,7 +1,7 @@
 'use client';
 
 import { Form } from '@/app/components/common/Form';
-import { useSystemAlertStore } from '@/app/store';
+import { useSystemAlertStore, usePushNotificationStore } from '@/app/store';
 import { useEffect } from 'react';
 import { regEmail, regName, regPassword } from '@/app/constants';
 import { useCreateFormStore } from '@/app/components/common/Form/useForm';
@@ -15,12 +15,27 @@ import styles from './../auth.module.scss';
 
 export default function RegisterForm() {
 	const alertPush = useSystemAlertStore(state => state.push);
+	const subscription = usePushNotificationStore(state => state.subscription);
 	const store = useCreateFormStore();
 	const setFormData = useStore(store, state => state.setFormData);
 
-	const { result, handleSubmit } = useSubmitAction({
+	const { result, handleSubmit: originalHandleSubmit } = useSubmitAction({
 		action: signUpWithCredentials
 	});
+
+	// subscription을 formData에 추가하는 커스텀 handleSubmit
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+
+		// subscription이 있으면 formData에 추가 (JSON 문자열로)
+		if (subscription) {
+			formData.append('subscription', JSON.stringify(subscription));
+		}
+
+		// 원래 handleSubmit 로직 실행
+		await originalHandleSubmit(e);
+	};
 
 	useEffect(() => {
 		if (result) {

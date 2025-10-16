@@ -2,12 +2,13 @@ import bcrypt from 'bcrypt';
 import { connectDB } from '@/app/utils/db/database';
 import { NextRequest, NextResponse } from 'next/server';
 import { regEmail, regPassword } from '@/app/constants';
+import { sendNotificationToUser } from '@/app/actions/system/webPushActions';
 
 export async function POST(req: NextRequest) {
 	try {
 		const body = await req.json();
 		let { password } = body;
-		const { email, name } = body;
+		const { email, name, subscription } = body;
 
 		// 이메일 유효성 검사
 		if (!regEmail.test(email))
@@ -52,6 +53,20 @@ export async function POST(req: NextRequest) {
 			name,
 			role: 'user'
 		});
+
+		// Push 알림
+		if (subscription) {
+			try {
+				await sendNotificationToUser({
+					subscription,
+					title: '🎉 회원가입을 축하합니다!',
+					body: '가입 기념 쿠폰이 발급되었습니다. 지금 바로 확인해보세요!',
+					url: 'https://style-shop-portfolio.vercel.app/my'
+				});
+			} catch (error) {
+				console.error('Failed to send welcome notification:', error);
+			}
+		}
 
 		return NextResponse.json({ message: '회원가입에 성공했습니다.' }, { status: 200 });
 	} catch (err) {
