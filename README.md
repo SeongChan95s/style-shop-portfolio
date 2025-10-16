@@ -51,18 +51,19 @@
 
 ### Framework
 
-- next.js@15
-- react@19
+- next.js@15.4.6
+- react@19.0.0
 
 ### Library
 
 - State : zustand, react context
 - Code : eslint, prettier, stylelint
-- Auth: next-auth, bcrypt
+- Auth: next-auth@5.0.0-beta.25, bcrypt
 - DB : mongodb, aws-sdk
-- UI : swiper, svgr, react-transition-group
-- form: react-hook-form
+- UI : swiper, svgr, react-transition-group, @tanstack/react-table
+- form: react-hook-form, zod
 - fetch: @tanstack/react-query, react-error-boundary
+- util: immer, lodash, http-status, nodemailer, react-daum-postcode
 
 ## Features
 
@@ -77,8 +78,9 @@
 - 서비스
   - 다크모드 : 텍스트부터 아이콘까지 손쉬운 스타일 관리(SCSS, svgr), 쿠키값을 사용하여 레이아웃 시프트 방지
   - 포스트 : 리뷰 작성 및 수정, 댓글, 이미지 업로드 (mongoDB, aws-sdk)
-  - 쇼핑 : 상품 상세, 위시리스트 및 장바구니 관리, 최근 본 상품(회원/비회원)
+  - 쇼핑 : 상품 상세, 위시리스트 및 장바구니 관리, 최근 본 상품(회원/비회원), 주문 및 배송지 관리(react-daum-postcode)
   - 검색 : 키워드 기준으로 검색어 denormalize, 최근 검색어(회원/비회원), 상품 필터(홈 카테고리, 트렌드, 맞춤 스타일, 상품 검색), 정렬(최신순, 인기순(기간별 조회), 가격순, 좋아요순), 더보기 무한 쿼리
+  - 콘텐츠 : 매거진 및 브랜드 콘텐츠 관리, 이미지 갤러리
 - 개발 : 체계적인 프로젝트 구조로 유지보수 용이
   - 코드 관리(prettier, stylelint, eslint, typescript)
   - 데이터 패칭
@@ -102,8 +104,8 @@
 │   ├── /register (회원가입)
 │   ├── /complete-profile (프로필 완성)
 │   └── /find/[tab] (계정/비밀번호 찾기)
-│       ├── /@id (아이디 찾기)
-│       └── /@password (비밀번호 찾기)
+│       ├── /@id (아이디 찾기 슬롯)
+│       └── /@password (비밀번호 찾기 슬롯)
 ├── /brand
 │   └── /[id] (브랜드 상세)
 ├── /cart (장바구니)
@@ -113,11 +115,13 @@
 │   │   ├── /@category (카테고리 슬롯)
 │   │   └── /@quick (빠른 메뉴 슬롯)
 │   └── /result (검색 결과)
-│       ├── /content (콘텐츠 결과)
-│       └── /product (상품 결과)
+│       ├── /content (콘텐츠 검색 결과)
+│       └── /product (상품 검색 결과)
 ├── /feed (피드)
 ├── /my (마이 페이지)
 ├── /wish (위시리스트)
+│   ├── /@brand (브랜드 위시리스트 슬롯)
+│   └── /@product (상품 위시리스트 슬롯)
 ├── /order (주문)
 │   ├── /detail/[orderId] (주문 상세)
 │   └── /process (주문 처리)
@@ -125,7 +129,7 @@
 │       └── /address (배송 주소)
 ├── /review (리뷰)
 │   ├── /details/[postId] (리뷰 상세)
-│   └── /edit/[[...id]] (리뷰 작성/편집)
+│   └── /edit/[id] (리뷰 작성/편집)
 └── /user (사용자)
     ├── / (사용자 메인)
     ├── /address (배송지 관리)
@@ -133,36 +137,28 @@
     ├── /order (주문내역)
     ├── /personalInfo (개인정보)
     └── /style (스타일 설정)
-
-## 데스크톱 관리자 (/admin)
-├── / (관리자 대시보드)
-├── /brand (브랜드 관리)
-└── /product (상품 관리)
 ```
 
-### PC
+### PC (관리자)
 
 ```
 /admin
-├── /dashboard (대시보드)
-├── /products
+├── / (대시보드)
+├── /product (상품 관리)
 │   ├── / (상품 목록)
-│   ├── /add (상품 추가)
-│   └── /[productId]/edit (상품 편집)
-├── /brands
+│   └── /edit/[id] (상품 편집)
+├── /brand (브랜드 관리)
 │   ├── / (브랜드 목록)
-│   ├── /add (브랜드 추가)
-│   └── /[brandId]/edit (브랜드 편집)
-├── /orders
-│   ├── / (주문 관리)
-│   └── /[orderId] (주문 상세)
-├── /users
-│   ├── / (회원 관리)
-│   └── /[userId] (회원 상세)
-├── /reviews
-│   └── / (리뷰 관리)
-└── /images
-    └── / (이미지 관리)
+│   └── /edit/[id] (브랜드 편집)
+├── /content (콘텐츠 관리)
+│   ├── / (콘텐츠 목록)
+│   ├── /edit/[id] (콘텐츠 편집)
+│   └── /magazine (매거진 관리)
+│       ├── / (매거진 목록)
+│       └── /edit/[id] (매거진 편집)
+└── /review (리뷰 관리)
+    ├── / (리뷰 목록)
+    └── /edit/[id] (리뷰 편집)
 ```
 
 ## 폴더구조
@@ -170,17 +166,22 @@
 - root
   - app
     - (route) : 라우팅
-      - 페이지, 레이아웃, 로딩, 에러 등 next.js 지원 라우팅 파일
-      - 컨테이너 : 해당 라우트에서만 사용되는 여러 조각으로 나눈 비즈니스 로직
-      - 해당 라우트에서만 사용하는 컴포넌트, 스타일
+      - (mobile) : 모바일 레이아웃
+        - 페이지, 레이아웃, 로딩, 에러 등 next.js 지원 라우팅 파일
+        - 컨테이너 : 해당 라우트에서만 사용되는 여러 조각으로 나눈 비즈니스 로직
+        - 해당 라우트에서만 사용하는 컴포넌트, 스타일
+      - (desktop) : 데스크톱 레이아웃 (관리자)
+    - actions : 서버 액션
     - api : next.js 서버 라우트 핸들러
     - components
       - common : UI를 표시하는데 목적이 있는 추상화된 공통 합성 컴포넌트
       - 도메인 컴포넌트 : 특정 도메인의 여러곳에 사용할 수 있는 비즈니스 로직이 포함된 컴포넌트
+        - admin, auth, brand, cart, explorer, global, order, post, product, review, system, user, wish
       - 해당 컴포넌트에서만 사용하는 스타일, util function, store, hook
     - constants : 상수 값
     - hooks : 리액트 훅
-    - serverActions : 서버 액션
+    - lib : 라이브러리 설정 (next-auth, mongodb, react-query 등)
+    - providers : React 프로바이더 (QueryClientProvider, ThemeProvider 등)
     - services : fetch(공통, 도메인)
     - store : 전역상태 값
     - types : 타입스크립트 타입
