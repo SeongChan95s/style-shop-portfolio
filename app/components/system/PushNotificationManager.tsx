@@ -1,25 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Toast } from '../common/Toast';
 import { registerServiceWorker, subscribeToPush } from '@/app/utils/pwa';
 import { usePushNotificationStore } from '@/app/store';
 import styles from './PushNotificationManager.module.scss';
 import { isDev } from '@/app/utils/dev';
-import { getCookie } from '@/app/utils/cookie';
 
 export default function PushNotificationManager() {
 	const subscription = usePushNotificationStore(state => state.subscription);
 	const isSupported = usePushNotificationStore(state => state.isSupported);
-	const [isClosed, setIsClosed] = useState(false);
 
 	useEffect(() => {
 		if (!isDev()) registerServiceWorker();
-
-		const closed = getCookie('popup') ?? '';
-		if (closed.indexOf('push') != -1) {
-			setIsClosed(true);
-		}
 	}, []);
 
 	const isVisible = subscription === null ? true : false;

@@ -7,10 +7,9 @@ import styles from './../../auth.module.scss';
 interface AuthFindLayoutProps {
 	id: React.ReactNode;
 	password: React.ReactNode;
-	children: React.ReactNode;
 }
 
-export default function AuthFindLayout({ id, password, children }: AuthFindLayoutProps) {
+export default function AuthFindLayout({ id, password }: AuthFindLayoutProps) {
 	const { tab } = useParams<{ tab: string }>();
 	const router = useRouter();
 	if (tab != 'id' && tab != 'password') return notFound();

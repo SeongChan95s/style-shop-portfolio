@@ -55,7 +55,7 @@ export default function SearchContentList({
 	}, [match, selectedFilter]);
 
 	const { data, isError, isPending } = useQuery({
-		queryFn: async ({ pageParam: skip }) =>
+		queryFn: async () =>
 			await getContents({
 				search,
 				match: createMatchFilter()

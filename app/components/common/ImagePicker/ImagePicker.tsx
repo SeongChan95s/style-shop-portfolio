@@ -90,7 +90,6 @@ const ImagePicker = forwardRef<HTMLInputElement, ImagePickerProps>(function Imag
 		name,
 		value: controlledValue,
 		defaultValue = [],
-		baseKey,
 		maxCount,
 		maxSizeMB = 5,
 		swiper = false,

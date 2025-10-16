@@ -36,7 +36,7 @@ export default function AddressList({
 			? addresses.find(ad => ad._id == defaultCheckAddressId)
 			: addresses.find(ad => ad.default);
 
-	addresses = addresses.sort((a, b) =>
+	addresses = addresses.sort((a) =>
 		a._id.toString() == addressToCheck?._id ? -1 : 0
 	);
 

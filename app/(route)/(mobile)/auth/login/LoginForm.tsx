@@ -11,7 +11,7 @@ import {
 } from '@/app/components/common/Icon';
 import { signInWithCredentials } from '@/app/actions/auth/authActions';
 import { getProviders } from 'next-auth/react';
-import { useActionState, useCallback, useEffect, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { useSystemAlertStore } from '@/app/store';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Input } from '@/app/components/common/Input';

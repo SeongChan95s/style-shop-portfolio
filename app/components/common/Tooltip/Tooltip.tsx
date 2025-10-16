@@ -22,7 +22,7 @@ export default function Tooltip({ children, size = 'md', icon }: TooltipProps) {
 	});
 	const directionY = y >= 0 ? 'bottom' : 'top';
 
-	const handleClick = (e: React.MouseEvent) => {
+	const handleClick = () => {
 		setIsVisible(true);
 	};
 

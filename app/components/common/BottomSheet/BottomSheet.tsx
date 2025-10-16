@@ -160,7 +160,7 @@ export default function BottomSheet({
 			}
 		};
 
-		const handleGlobalEnd = (e: MouseEvent | TouchEvent) => {
+		const handleGlobalEnd = () => {
 			if (isDragging) {
 				handleDragEnd();
 			}

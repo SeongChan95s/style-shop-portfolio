@@ -9,10 +9,6 @@ import { getProductNestedByItemId } from '@/app/services/product';
 import ProductCard from '@/app/components/product/ProductCard';
 import { IconButton } from '@/app/components/common/IconButton';
 import {
-	IconHeartOutlined,
-	IconList,
-	IconMoreVertical,
-	IconSettingOutlined,
 	IconShare
 } from '@/app/components/common/Icon';
 import { WishButton } from '@/app/components/wish';

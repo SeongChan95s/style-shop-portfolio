@@ -10,7 +10,7 @@ import type { Swiper as SwiperClass } from 'swiper';
 import styles from './home.module.scss';
 import 'swiper/css';
 import { FreeMode, Controller } from 'swiper/modules';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export default function QuickContents() {
 	const { data: contents } = useSuspenseQuery({

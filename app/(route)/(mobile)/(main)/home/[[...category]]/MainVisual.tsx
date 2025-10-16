@@ -9,7 +9,6 @@ import { getContents } from '@/app/services/contents';
 import { CSSTransition } from 'react-transition-group';
 import { Magazine } from '@/app/types';
 import { createTransitionClassNames } from '@/app/utils/convert';
-import { HTTPError } from '@/app/services/HTTPError';
 import styles from './home.module.scss';
 export default function MainVisual() {
 	const [activeVisual, setActiveVisual] = useState<number>(0);

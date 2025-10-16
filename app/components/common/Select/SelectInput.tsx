@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
-import { classNames } from '@/app/utils';
 import { Placeholder } from '../Form';
 import { IconArrowTrim } from '../Icon';
 import { useSelect } from './Select.hooks';
@@ -28,11 +26,6 @@ export default function SelectInput({ id, label, placeholder }: Props) {
 		enableTextField
 	} = useSelect();
 
-	const inputClassName = classNames(
-		styles.input,
-		styles[variant],
-		isFocused && 'focused'
-	);
 	const iconClassName = isFocused ? styles.isFocused : '';
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

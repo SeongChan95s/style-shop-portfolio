@@ -5,7 +5,7 @@ import { AppBar } from '../../../../components/common/AppBar';
 import { IconButton } from '../../../../components/common/IconButton';
 import { BottomSheet } from '@/app/components/common/BottomSheet';
 import { Button } from '@/app/components/common/Button';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useSystemAlertStore } from '@/app/store';
 import { ProductNested } from '@/app/types';
 import { Select } from '@/app/components/common/Select';

@@ -15,7 +15,6 @@ import {
 	IconGridCol1,
 	IconGridRow2,
 	IconGridRow2Col2,
-	IconSettingOutlined,
 	IconShare
 } from '@/app/components/common/Icon';
 import { Document } from 'mongodb';
@@ -143,7 +142,7 @@ export default function Timeline() {
 			</div>
 
 			<div className={styles.contents}>
-				{reviews?.map((review, i) => (
+				{reviews?.map((review) => (
 					<Link
 						href={`/review/details/${review._id}`}
 						className={styles.card}

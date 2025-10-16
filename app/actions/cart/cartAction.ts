@@ -6,7 +6,6 @@ import { connectDB } from '@/app/utils/db/database';
 import { ObjectId } from 'mongodb';
 import { getSession } from '../auth/authActions';
 import { deleteCartById } from '@/app/services/cart';
-import { getDecodedServerCookie } from '@/app/utils/getServerCookie';
 import { cookies } from 'next/headers';
 
 type CartActionState =

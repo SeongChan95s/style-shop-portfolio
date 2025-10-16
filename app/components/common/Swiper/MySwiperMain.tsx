@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { SwiperOptions } from 'swiper/types';
-import { Children, CSSProperties } from 'react';
+import { Children } from 'react';
 
 import { Autoplay, EffectCoverflow, FreeMode, Grid, Pagination } from 'swiper/modules';
 import 'swiper/css';

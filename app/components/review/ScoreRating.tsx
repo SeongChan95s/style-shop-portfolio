@@ -61,7 +61,7 @@ export default function ScoreRating({
 		setValue(newValue);
 	};
 
-	const handlePointerUp = (e: PointerEvent) => {
+	const handlePointerUp = () => {
 		if (readOnly) return;
 		window.removeEventListener('pointermove', handlePointerMove);
 		window.removeEventListener('pointerup', handlePointerUp);

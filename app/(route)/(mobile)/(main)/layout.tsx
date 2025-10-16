@@ -1,6 +1,5 @@
 'use client';
 
-import { Footer } from '@/app/components/global/Footer';
 import { TabBar } from '@/app/components/global/Nav';
 import { AppInstallNotification } from '@/app/components/system';
 

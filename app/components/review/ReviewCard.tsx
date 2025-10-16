@@ -6,13 +6,9 @@ import { useState } from 'react';
 import { Collapse } from '@/app/components/common/Collapse';
 import { Card } from '../common/Card';
 import { MySwiper } from '../common/Swiper';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getUserByEmail } from '@/app/services/user/getUserByEmail';
-import { Menu } from '../common/Menu';
-import { IconMoreVertical, IconTalkOutlined } from '../common/Icon';
-import { deleteReview } from '@/app/services/review';
-import { useSystemAlertStore } from '@/app/store';
-import { useRouter } from 'next/navigation';
+import { IconTalkOutlined } from '../common/Icon';
 import { Link } from '../common/Link';
 import ScoreRating from './ScoreRating';
 import styles from './ReviewCard.module.scss';
@@ -20,7 +16,6 @@ import ReviewMenu from './ReviewMenu';
 
 export default function ReviewCard({
 	review,
-	isAuthor,
 	wrap,
 	onClick
 }: {
@@ -29,16 +24,8 @@ export default function ReviewCard({
 	isAuthor: boolean;
 	onClick?: React.MouseEventHandler<HTMLLIElement>;
 }) {
-	const [imageSizes, setImageSizes] = useState<string>('20vw');
+	const [imageSizes] = useState<string>('20vw');
 	const [isVisible, setIsVisible] = useState(true);
-
-	const handleImageResize = () => {
-		if (wrap) {
-			setImageSizes('20vw');
-		} else {
-			setImageSizes('100vw');
-		}
-	};
 
 	const { data: user } = useQuery({
 		queryFn: () => getUserByEmail(review.author.email),

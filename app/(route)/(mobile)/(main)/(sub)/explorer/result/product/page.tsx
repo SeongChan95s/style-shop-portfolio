@@ -31,8 +31,6 @@ export default function ExplorerResultProduct({}: ExplorerResultProduct) {
 	if (isError) return <></>;
 	if (isPending) return <></>;
 
-	const filter = data.success ? data.data : {};
-
 	return (
 		<>
 			<List search={search} />

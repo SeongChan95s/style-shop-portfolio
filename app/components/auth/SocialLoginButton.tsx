@@ -9,14 +9,12 @@ interface SocialLoginButtonProps {
 	icon?: React.ReactElement;
 	className?: string;
 	provider: ClientSafeProvider;
-	callbackUrl?: string;
 }
 
 export default function SocialLoginButton({
 	className,
 	icon,
-	provider,
-	callbackUrl
+	provider
 }: SocialLoginButtonProps) {
 	return (
 		<Button

@@ -1,7 +1,7 @@
 'use client';
 
 import { CSSTransition } from 'react-transition-group';
-import { useRef, Children, cloneElement, isValidElement } from 'react';
+import { useRef, Children, isValidElement } from 'react';
 import styles from './Select.module.scss';
 import { useSelect } from './Select.hooks';
 import { classNames } from '@/app/utils';

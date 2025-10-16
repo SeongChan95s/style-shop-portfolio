@@ -1,8 +1,7 @@
 'use client';
 
-import { InputHTMLAttributes, useEffect, useState, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { IconCheck } from '../Icon';
-import { useCssAnimation } from '@/app/hooks';
 import styles from './Checkbox.module.scss';
 import { classNames } from '@/app/utils';
 
@@ -25,7 +24,6 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
 		value,
 		disabled = false,
 		checked: checkedProp,
-		defaultChecked,
 		onChange,
 		onInput,
 		children

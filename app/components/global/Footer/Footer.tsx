@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Accordion } from '../../common/Accordion';
 import styles from './Footer.module.scss';
 import { Divider } from '../../common/Divider';
-import { IconArrowTrim } from '../../common/Icon';
 
 export default function Footer() {
 	const [openIndex, setOpenIndex] = useState<number | null>(null);

@@ -14,7 +14,6 @@ import HomeLnb from './HomeLnb';
 
 export interface NavBarProps {
 	display?: string;
-	children?: React.ReactNode;
 }
 
 const initialNavBarProps = {
@@ -30,7 +29,7 @@ const initialNavBarProps = {
 	action: undefined
 };
 
-export default function NavBar({ display = '', children }: NavBarProps) {
+export default function NavBar({ display = '' }: NavBarProps) {
 	const { matchedPath, scrollFlag, productName, isDetailsPage } = useNavBar();
 	const colorClass = matchedPath?.color ? styles[matchedPath?.color] : styles.light;
 	const titleRef = useRef<HTMLHeadingElement>(null);

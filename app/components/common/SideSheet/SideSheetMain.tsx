@@ -3,8 +3,6 @@
 import { CSSTransition } from 'react-transition-group';
 import { useRef } from 'react';
 import { SideSheetProvider } from './SideSheetProvider';
-import { SideSheetStore } from './useSideSheet';
-import { StoreApi, useStore } from 'zustand';
 import SideSheetCloseButton from './SideSheetCloseButton';
 import styles from './SideSheet.module.scss';
 import { createTransitionClassNames } from '@/app/utils/convert';

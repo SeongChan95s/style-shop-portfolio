@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getContentsWithProducts } from '@/app/services/contents';
 import { ProductNested, Magazine } from '@/app/types';
@@ -86,7 +86,6 @@ export default function InfiniteSections({ category }: InfiniteSectionsProps) {
 		isFetchingNextPage,
 		fetchNextPage
 	} = useInfiniteQuery({
-		// eslint-disable-next-line @tanstack/query/exhaustive-deps
 		queryKey: ['product', 'magazine', category || 'all'],
 		queryFn: async ({ pageParam = 0 }: { pageParam?: number }) => {
 			const filter = sectionWithQuery[pageParam % sectionWithQuery.length];

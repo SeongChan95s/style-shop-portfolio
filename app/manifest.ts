@@ -7,8 +7,6 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
 
 	// iOS 감지 (iPhone, iPad, iPod)
 	const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
-	// Android 감지
-	const isAndroid = /Android/i.test(userAgent);
 
 	// 디스플레이 모드 결정
 	let displayMode: 'fullscreen' | 'minimal-ui' | 'standalone' = 'standalone';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Placeholder } from '../Form';
 import styles from './Textarea.module.scss';
 import { classNames } from '@/app/utils';

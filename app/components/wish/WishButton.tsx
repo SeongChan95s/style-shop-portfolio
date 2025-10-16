@@ -3,14 +3,11 @@
 import { IconHeartFilled, IconHeartOutlined } from '../common/Icon';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { HTTPError } from '@/app/services/HTTPError';
-import { addWish, getUserWishByProduct, removeWish } from '@/app/services/wish';
 import { useSession } from '../../providers/SessionProvider';
-import { useEffect, useState } from 'react';
 import { IconButton } from '../common/IconButton';
 import styles from './WishButton.module.scss';
 import { toggleWish } from '@/app/services/wish/toggleWish';
 import { getWishStatusByIdAndSession } from '@/app/services/wish/getWishStatusByIdAndSession';
-import { FetchResponse } from '@/app/types';
 import { useSystemAlertStore } from '@/app/store';
 
 interface WishButtonProps {

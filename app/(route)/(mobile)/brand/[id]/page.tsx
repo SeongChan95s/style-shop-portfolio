@@ -3,9 +3,8 @@ import { handleFetch } from '@/app/utils';
 import { notFound } from 'next/navigation';
 import BrandHeader from './BrandHeader';
 import BrandInfo from './BrandInfo';
-import BrandProducts, { BrandProductsSkeleton } from './BrandProducts';
+import BrandProducts from './BrandProducts';
 import { Divider } from '@/app/components/common/Divider';
-import { AsyncFetchBoundary } from '@/app/components/system';
 import styles from './brand.module.scss';
 
 export default async function Brand({ params }: { params: Promise<{ id: string }> }) {

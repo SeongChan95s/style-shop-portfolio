@@ -1,4 +1,4 @@
-import { FetchResponse, Brand } from '@/app/types';
+import { FetchResponse } from '@/app/types';
 import { HTTPError } from '../HTTPError';
 
 export const getWishCountByNameAndSession = async (

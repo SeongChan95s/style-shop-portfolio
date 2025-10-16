@@ -1,5 +1,4 @@
 import { DefaultSession } from 'next-auth';
-import { Address } from '.';
 
 export interface UserDB extends UserToken, UserOptionalInfo {
 	_id: string;

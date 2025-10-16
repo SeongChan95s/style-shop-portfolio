@@ -3,7 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import BrandForm from './BrandForm';
-import { Brand } from '@/app/types';
 import { getBrands } from '@/app/services/brand/getBrands';
 
 export default function BrandEditPage() {
