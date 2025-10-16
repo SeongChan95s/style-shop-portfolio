@@ -1,22 +1,21 @@
 'use client';
 
-import { Review } from '@/app/types';
+import { Magazine } from '@/app/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '@/app/components/common/Button';
-import { getReviews } from '@/app/services/review/getReviews';
+import { getContents } from '@/app/services/contents/getContents';
 import { useRouter } from 'next/navigation';
 import { Table, TableColumn } from '@/app/components/common/Table';
-import styles from './../admin.module.scss';
+import styles from './../../admin.module.scss';
 
 const TABLE_COLUMNS: TableColumn[] = [
 	{ field: 'id', value: '_id', width: 100 },
-	{ field: '작성자', value: 'author.email', width: 150 },
-	{ field: '상품ID', value: 'productItemId', width: 100 },
-	{ field: '별점', value: 'score', width: 50 },
+	{ field: '이름', value: 'name', width: 150 },
+	{ field: '제목', value: 'title', width: 200 },
 	{
-		field: '리뷰 내용',
-		value: 'content.text',
+		field: '본문',
+		value: 'body',
 		width: 300,
 		transform: (value: unknown) => {
 			if (typeof value === 'string') {
@@ -26,19 +25,19 @@ const TABLE_COLUMNS: TableColumn[] = [
 		}
 	},
 	{
-		field: '작성일',
-		value: 'timestamp',
-		width: 100,
+		field: '키워드',
+		value: 'keywords',
+		width: 200,
 		transform: (value: unknown) => {
-			if (typeof value === 'number') {
-				return new Date(value).toLocaleDateString('ko-KR');
+			if (Array.isArray(value)) {
+				return value.join(', ');
 			}
 			return '';
 		}
 	}
 ];
 
-export default function AdminReviewPage() {
+export default function AdminMagazinePage() {
 	const router = useRouter();
 
 	const limit = 10;
@@ -46,8 +45,9 @@ export default function AdminReviewPage() {
 	const [search, _setSearch] = useState('');
 
 	const { data, isPending, isError, hasNextPage, fetchNextPage } = useInfiniteQuery({
-		queryFn: async ({ pageParam: skip }) => getReviews({ skip, limit }),
-		queryKey: ['review', search],
+		queryFn: async ({ pageParam: skip }) =>
+			getContents<Magazine>({ skip, limit, match: { name: '매거진' } }),
+		queryKey: ['magazine', search],
 		initialPageParam: 0,
 		getNextPageParam: (lastPage, pages) => {
 			if (lastPage.success && lastPage.data.length < limit) {
@@ -61,7 +61,7 @@ export default function AdminReviewPage() {
 		return (
 			<div className={styles.brandListPage}>
 				<header>
-					<h3>리뷰 목록</h3>
+					<h3>매거진 목록</h3>
 				</header>
 				<div>로딩 중...</div>
 			</div>
@@ -72,34 +72,34 @@ export default function AdminReviewPage() {
 		return (
 			<div className={styles.brandListPage}>
 				<header>
-					<h3>리뷰 목록</h3>
+					<h3>매거진 목록</h3>
 				</header>
 				<div>데이터를 불러오는데 실패했습니다.</div>
 			</div>
 		);
 	}
 
-	const reviews = data.pages.flatMap(page => (page.success ? page.data : []));
+	const magazines = data.pages.flatMap(page => (page.success ? page.data : []));
 
-	const onClickRow = (review: Review<string>) => {
-		router.push(`/admin/review/edit/${review._id}`);
+	const onClickRow = (magazine: Magazine) => {
+		router.push(`/admin/content/magazine/edit/${magazine._id}`);
 	};
 
-	const handleAddReview = (e: React.MouseEvent) => {
+	const handleAddMagazine = (e: React.MouseEvent) => {
 		e.preventDefault();
-		router.push('/admin/review/edit/new');
+		router.push('/admin/content/magazine/edit/new');
 	};
 
 	return (
 		<div className={styles.brandListPage}>
 			<header>
-				<h3>리뷰 목록</h3>
+				<h3>매거진 목록</h3>
 			</header>
-			<Table data={reviews} columns={TABLE_COLUMNS} onClickRow={onClickRow} />
+			<Table data={magazines} columns={TABLE_COLUMNS} onClickRow={onClickRow} />
 			{hasNextPage && <Button onClick={() => fetchNextPage()}>더보기</Button>}
 
-			<Button size="sm" onClick={handleAddReview}>
-				리뷰 추가
+			<Button size="sm" onClick={handleAddMagazine}>
+				매거진 추가
 			</Button>
 		</div>
 	);

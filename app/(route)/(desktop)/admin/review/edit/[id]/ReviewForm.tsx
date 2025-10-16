@@ -79,7 +79,7 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 	};
 
 	return (
-		<div className={styles.productEditPage}>
+		<section className={`${styles.editForm} ${styles.reviewForm}`}>
 			<div className="inner">
 				<header>
 					<h3>{isNew ? '새 리뷰 추가' : '리뷰 수정'}</h3>
@@ -91,17 +91,7 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 							<Input {...register('_id')} label="id" variant="outlined" fill readOnly />
 						</li>
 
-						<li className={styles.name}>
-							<Input
-								{...register('userEmail')}
-								label="작성자 이메일"
-								variant="outlined"
-								fill
-								readOnly={!isNew}
-								required={isNew}
-							/>
-						</li>
-						<li className={styles.name}>
+						<li className={styles.productId}>
 							<Input
 								{...register('productItemId')}
 								label="상품 아이템 ID"
@@ -111,7 +101,7 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 								required={isNew}
 							/>
 						</li>
-						<li className={styles.name}>
+						<li className={styles.orderId}>
 							<Input
 								{...register('orderId')}
 								label="주문 ID"
@@ -121,8 +111,19 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 								required={isNew}
 							/>
 						</li>
+
+						<li className={styles.email}>
+							<Input
+								{...register('userEmail')}
+								label="작성자 이메일"
+								variant="outlined"
+								fill
+								readOnly={!isNew}
+								required={isNew}
+							/>
+						</li>
 						{!isNew && (
-							<li className={styles.name}>
+							<li className={styles.date}>
 								<Input
 									value={
 										initialReview?.timestamp
@@ -137,7 +138,7 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 							</li>
 						)}
 
-						<li className={styles.price}>
+						<li className={styles.score}>
 							<Input
 								{...register('score', { valueAsNumber: true })}
 								type="number"
@@ -148,18 +149,24 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 							/>
 						</li>
 
-						<li className={styles.category}>
-							<h5>리뷰 내용</h5>
+						<li className={styles.text}>
 							<Controller
 								control={control}
 								name="content.text"
 								render={({ field }) => (
-									<Textarea label="리뷰 내용" count fill maxLength={1000} {...field} />
+									<Textarea
+										variant="outlined"
+										label="리뷰 내용"
+										count
+										fill
+										rows={5}
+										{...field}
+									/>
 								)}
 							/>
 						</li>
 
-						<li className={styles.keywords}>
+						<li className={styles.image}>
 							<h5>이미지</h5>
 							<Controller
 								name="content.images"
@@ -174,26 +181,24 @@ export default function ReviewForm({ initialReview, isNew = false }: ReviewFormP
 						</li>
 					</ul>
 
-					<div className={styles.bottom}>
-						<div className={styles.bottomFrame}>
-							<div className={styles.left}>
-								{!isNew && (
-									<Button type="button" onClick={handleDeleteReview}>
-										리뷰 삭제
-									</Button>
-								)}
-							</div>
-
-							<div className={styles.right}>
-								<Button type="button" onClick={() => router.push('/admin/review')}>
-									목록으로
+					<div className={styles.formButtonWrap}>
+						<div className={styles.left}>
+							{!isNew && (
+								<Button type="button" onClick={handleDeleteReview}>
+									리뷰 삭제
 								</Button>
-								<Button type="submit">저장</Button>
-							</div>
+							)}
+						</div>
+
+						<div className={styles.right}>
+							<Button type="button" onClick={() => router.push('/admin/review')}>
+								목록으로
+							</Button>
+							<Button type="submit">저장</Button>
 						</div>
 					</div>
 				</form>
 			</div>
-		</div>
+		</section>
 	);
 }

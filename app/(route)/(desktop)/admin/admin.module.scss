@@ -1,7 +1,7 @@
 .adminLayout {
 	display: flex;
 	gap: 1.3rem;
-	height: calc(100dvh - (4.8rem + ios-safe-area(top)));
+	min-height: calc(100dvh - (4.8rem + ios-safe-area(top)));
 	padding-top: 1.2rem;
 	background-color: var(--white-color-normal);
 
@@ -29,14 +29,38 @@
 	:global(.list-item) {
 		cursor: pointer;
 		transition: background-color 0.2s ease;
+	}
 
-		&:hover {
-			background-color: var(--gray-color-dim);
+	.depth01 {
+		display: block;
+
+		.depth02 {
+			background-color: var(--white-color-dark);
+		}
+		.depth02Item {
+			padding-left: 1.2rem;
 		}
 	}
 }
 
-.productEditPage {
+.productListPage,
+.brandListPage {
+	header {
+		margin-bottom: 2rem;
+
+		h3 {
+			font-size: 2rem;
+			font-weight: 600;
+			color: var(--black-color-normal);
+		}
+	}
+
+	> button {
+		margin-top: 1.6rem;
+	}
+}
+
+.editForm {
 	.groupWrap {
 		display: grid;
 		grid-template-columns: repeat(8, 1fr);
@@ -50,6 +74,7 @@
 			width: 100%;
 			height: 100%;
 			min-width: 0;
+			min-height: 0;
 
 			h5 {
 				display: flex;
@@ -63,66 +88,65 @@
 				@include title-3;
 			}
 		}
+	}
 
-		.id {
-			grid-column: span 2;
+	.formButtonWrap {
+		background-color: var(--white-color-light);
+		padding: $inner;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 1.6rem;
+		.right,
+		.left {
+			display: flex;
+			gap: 1.4rem;
 		}
-		.name {
-			grid-column: span 4;
-		}
-		.brand {
-			grid-column: span 2;
-		}
-		.price {
-			grid-column: span 2;
-			grid-row: span 2;
-			li + li {
-				margin-top: 1.2rem;
-			}
-		}
+	}
+}
 
-		.category {
-			grid-column: span 6;
-			> ul {
-				width: 100%;
-				display: flex;
-				gap: 1.2rem;
-				> li {
-					width: calc(25% - 1.2rem);
-				}
-			}
+.productForm {
+	.id {
+		grid-column: span 2;
+	}
+	.name {
+		grid-column: span 4;
+	}
+	.brand {
+		grid-column: span 2;
+	}
+	.price {
+		grid-column: span 2;
+		grid-row: span 2;
+		li + li {
+			margin-top: 1.2rem;
 		}
+	}
 
-		.keywords {
-			grid-column: span 6;
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.7rem;
-			}
-
-			.keywordField {
-				background-color: transparent;
-				border: none;
-				color: var(--white-color);
-				width: 7rem;
+	.category {
+		grid-column: span 6;
+		> ul {
+			width: 100%;
+			display: flex;
+			gap: 1.2rem;
+			> li {
+				width: calc(25% - 1.2rem);
 			}
 		}
 	}
 
-	.bottom {
-		background-color: var(--white-color-light);
-		padding: $inner;
-
-		.bottomFrame {
+	.keywords {
+		grid-column: span 6;
+		ul {
 			display: flex;
-			justify-content: space-between;
-			margin-top: 1.6rem;
-			.right,
-			.left {
-				display: flex;
-				gap: 1.4rem;
-			}
+			flex-wrap: wrap;
+			gap: 0.7rem;
+		}
+
+		.keywordField {
+			background-color: transparent;
+			border: none;
+			color: var(--white-color);
+			width: 7rem;
 		}
 	}
 
@@ -210,49 +234,86 @@
 	}
 }
 
-.productListPage,
-.brandListPage {
-	header {
-		margin-bottom: 2rem;
+.reviewForm {
+	display: block;
 
-		h3 {
-			font-size: 2rem;
-			font-weight: 600;
-			color: var(--black-color-normal);
-		}
+	.id {
+		grid-column: span 3;
 	}
 
-	> button {
-		margin-top: 1.6rem;
+	.email,
+	.productId,
+	.orderId,
+	.score {
+		grid-column: span 2;
+	}
+
+	.text {
+		grid-area: span 3 / span 8;
+	}
+	.image {
+		grid-column: span 8;
 	}
 }
 
-.brandModal {
-	:global(.dialogContainer) {
-		padding: var(--inner);
+.contentForm {
+	.name,
+	.title {
+		grid-column: span 4;
+	}
+	.id,
+	.url,
+	.image,
+	.body {
+		grid-column: span 8;
+	}
+}
+
+.magazineForm {
+	display: block;
+
+	.id {
+		grid-column: span 3;
 	}
 
-	.formArea {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: auto;
-		gap: 1.2rem;
+	.name,
+	.title {
+		grid-column: span 4;
+	}
 
-		.id {
-			grid-column: span 2;
-		}
-		.desc {
-			grid-area: span 3 / span 2;
-		}
-		.image {
-			grid-column: span 2;
+	.url,
+	.body {
+		grid-column: span 8;
+	}
+
+	.productGroupsId {
+		grid-column: span 8;
+
+		ul {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.7rem;
 		}
 	}
 
-	.buttonWrap {
-		display: flex;
-		justify-content: flex-end;
-		gap: 1.2rem;
-		margin-top: 0.8rem;
+	.keywords {
+		grid-column: span 8;
+
+		ul {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.7rem;
+		}
+
+		.keywordField {
+			background-color: transparent;
+			border: none;
+			color: var(--white-color);
+			width: 7rem;
+		}
+	}
+
+	.image {
+		grid-column: span 8;
 	}
 }

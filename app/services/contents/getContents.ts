@@ -24,7 +24,7 @@ export const getContents = async <T extends Content>({
 	});
 
 	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/contents/getContents?${queryStrings}`
+		`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/content/getContent?${queryStrings}`
 	);
 	const result = await response.json();
 

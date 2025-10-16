@@ -3,7 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import ReviewForm from './ReviewForm';
-import { Review } from '@/app/types';
 import { getReviews } from '@/app/services/review/getReviews';
 
 export default function ReviewEditPage() {

@@ -2,10 +2,8 @@
 
 import { ProductItem, ProductNested } from '@/app/types';
 import { Input } from '@/app/components/common/Input';
-import Chip from '@/app/components/common/Chip/Chip';
-import { useState } from 'react';
 import { Button } from '@/app/components/common/Button';
-import { IconClose, IconIncrease } from '@/app/components/common/Icon';
+import { StackField } from '@/app/components/common/StackField';
 import { useSystemAlertStore } from '@/app/store';
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { deleteProductGroupById } from '@/app/services/product/deleteProductGroupById';
@@ -52,8 +50,6 @@ export type ProductFormData = {
 
 export default function ProductForm({ initialProduct, isNew = false }: ProductFormProps) {
 	const router = useRouter();
-	const [inputKeyword, setInputKeyword] = useState('');
-	const [addKeywordFlag, setAddKeywordFlag] = useState(false);
 
 	const {
 		register,
@@ -161,8 +157,6 @@ export default function ProductForm({ initialProduct, isNew = false }: ProductFo
 		setValue('items', updatedItems);
 	};
 
-	const keywords = watch('keywords') || [];
-
 	const onSubmit = async (data: ProductFormData) => {
 		await updateProduct(data);
 		queryClient.invalidateQueries({
@@ -171,7 +165,7 @@ export default function ProductForm({ initialProduct, isNew = false }: ProductFo
 	};
 
 	return (
-		<div className={styles.productEditPage}>
+		<div className={`${styles.editForm} ${styles.productForm}`}>
 			<header>
 				<h3>{isNew ? '새 상품 추가' : '상품 수정'}</h3>
 			</header>
@@ -330,79 +324,13 @@ export default function ProductForm({ initialProduct, isNew = false }: ProductFo
 						)}
 					</li>
 					<li className={styles.keywords}>
-						<h5>키워드</h5>
-						<ul>
-							{keywords &&
-								Array.isArray(keywords) &&
-								keywords.map(keyword => (
-									<li key={keyword}>
-										<Chip variant="depth">
-											{keyword}
-											<IconClose
-												onClick={() => {
-													const targetIndex = keywords.indexOf(keyword);
-													const newKeywords = [
-														...keywords.slice(0, targetIndex),
-														...keywords.slice(targetIndex + 1)
-													];
-													setValue('keywords', newKeywords);
-												}}
-											/>
-										</Chip>
-									</li>
-								))}
-							<li>
-								<Chip
-									onClick={() => {
-										setAddKeywordFlag(true);
-									}}>
-									{!addKeywordFlag ? (
-										<IconIncrease />
-									) : (
-										<>
-											<input
-												className={styles.keywordField}
-												onChange={e => {
-													setInputKeyword(e.target.value);
-												}}
-												onKeyDown={e => {
-													if (e.key === 'Enter') {
-														e.preventDefault();
-
-														if (inputKeyword.length != 0) {
-															const newKeywords = [...keywords, inputKeyword];
-															setValue('keywords', newKeywords);
-															setAddKeywordFlag(false);
-															setInputKeyword('');
-														}
-													}
-												}}
-												autoFocus
-											/>
-											<IconIncrease
-												onClick={e => {
-													e.stopPropagation();
-													setAddKeywordFlag(false);
-
-													if (inputKeyword.length != 0) {
-														const newKeywords = [...keywords, inputKeyword];
-														setValue('keywords', newKeywords);
-														setInputKeyword('');
-													}
-												}}
-											/>
-											<IconClose
-												onClick={e => {
-													e.stopPropagation();
-													setAddKeywordFlag(false);
-													setInputKeyword('');
-												}}
-											/>
-										</>
-									)}
-								</Chip>
-							</li>
-						</ul>
+						<Controller
+							control={control}
+							name="keywords"
+							render={({ field }) => (
+								<StackField {...field} label="키워드" placeholder="키워드 입력" />
+							)}
+						/>
 					</li>
 				</ul>
 
@@ -415,7 +343,7 @@ export default function ProductForm({ initialProduct, isNew = false }: ProductFo
 						setValue={setValue}
 					/>
 
-					<div className={styles.bottomFrame}>
+					<div className={styles.formButtonWrap}>
 						<div className={styles.left}>
 							{!isNew && (
 								<Button type="button" onClick={handleDeleteProductGroup}>

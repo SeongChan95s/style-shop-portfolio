@@ -131,3 +131,65 @@ export const productEditFormSchema = z
 			items: processedItems
 		};
 	});
+
+export const contentEditFormSchema = z.object({
+	_id: z
+		.string()
+		.or(z.instanceof(ObjectId))
+		.transform(val => (typeof val === 'string' ? new ObjectId(val) : val)),
+	name: z.string().min(1, '이름을 입력해주세요.'),
+	title: z.string().min(1, '제목을 입력해주세요.'),
+	body: z.string().max(5000, '본문은 5000자 이내로 입력해주세요.'),
+	url: z.string().url('올바른 URL을 입력해주세요.').optional().or(z.literal('')),
+	images: z.array(
+		z.object({
+			state: z.string(),
+			key: z.string(),
+			file: z
+				.instanceof(File)
+				.superRefine((file, ctx) => {
+					if (!file) return;
+					if (file.size > 10 * 1024 * 1024) {
+						ctx.addIssue({
+							code: z.ZodIssueCode.custom,
+							message: `파일명 "${file.name}"이 최대 크기 10MB를 초과했습니다. (현재: ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+						});
+					}
+				})
+				.nullish()
+		})
+	)
+});
+
+export const magazineEditFormSchema = z.object({
+	_id: z
+		.string()
+		.or(z.instanceof(ObjectId))
+		.transform(val => (typeof val === 'string' ? new ObjectId(val) : val)),
+	name: z.string().min(1, '이름을 입력해주세요.'),
+	title: z.string().min(1, '제목을 입력해주세요.'),
+	body: z.string().max(5000, '본문은 5000자 이내로 입력해주세요.'),
+	url: z.string().url('올바른 URL을 입력해주세요.').optional().or(z.literal('')),
+	productGroupsId: z
+		.array(z.string().transform(val => new ObjectId(val)))
+		.min(1, '최소 1개 이상의 상품을 선택해주세요.'),
+	keywords: z.array(z.string()).min(1, '최소 1개 이상의 키워드를 입력해주세요.'),
+	images: z.array(
+		z.object({
+			state: z.string(),
+			key: z.string(),
+			file: z
+				.instanceof(File)
+				.superRefine((file, ctx) => {
+					if (!file) return;
+					if (file.size > 10 * 1024 * 1024) {
+						ctx.addIssue({
+							code: z.ZodIssueCode.custom,
+							message: `파일명 "${file.name}"이 최대 크기 10MB를 초과했습니다. (현재: ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+						});
+					}
+				})
+				.nullish()
+		})
+	)
+});

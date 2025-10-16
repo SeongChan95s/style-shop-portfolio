@@ -58,7 +58,27 @@ export default function AdminProductPage() {
 		}
 	});
 
-	if (isPending || isError) return <></>;
+	if (isPending) {
+		return (
+			<div className={styles.productListPage}>
+				<header>
+					<h3>상품 목록</h3>
+				</header>
+				<div>로딩 중...</div>
+			</div>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className={styles.productListPage}>
+				<header>
+					<h3>상품 목록</h3>
+				</header>
+				<div>데이터를 불러오는데 실패했습니다.</div>
+			</div>
+		);
+	}
 
 	const products = data.pages.flatMap(page => (page.success ? page.data : []));
 
