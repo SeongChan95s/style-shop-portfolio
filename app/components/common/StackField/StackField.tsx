@@ -11,18 +11,19 @@ interface StackFieldProps {
 	placeholder?: string;
 	label?: string;
 	name?: string;
+	maxSize?: number;
 }
 
-const StackField = forwardRef<HTMLDivElement, StackFieldProps>(
-	({ value = [], onChange, onBlur, placeholder = '입력 후 Enter', label, name }, ref) => {
+const StackField = forwardRef<HTMLInputElement, StackFieldProps>(
+	({ value = [], onChange, onBlur, placeholder = '', label, name, maxSize }, ref) => {
 		const [addMode, setAddMode] = useState(false);
-		const [inputValue, setInputValue] = useState('');
+		const [currentInputValue, setCurrentInputValue] = useState('');
 
 		const handleAdd = () => {
-			if (inputValue.length === 0) return;
-			const newValue = [...value, inputValue];
+			if (currentInputValue.length === 0) return;
+			const newValue = [...value, currentInputValue];
 			onChange?.(newValue);
-			setInputValue('');
+			setCurrentInputValue('');
 			setAddMode(false);
 			onBlur?.();
 		};
@@ -36,12 +37,12 @@ const StackField = forwardRef<HTMLDivElement, StackFieldProps>(
 
 		const handleCancel = () => {
 			setAddMode(false);
-			setInputValue('');
+			setCurrentInputValue('');
 			onBlur?.();
 		};
 
 		return (
-			<div className={styles.stackField} ref={ref}>
+			<div className={styles.stackField}>
 				{label && <h5>{label}</h5>}
 				<ul className={styles.itemWrap}>
 					{value &&
@@ -52,48 +53,51 @@ const StackField = forwardRef<HTMLDivElement, StackFieldProps>(
 								<IconClose size="sm" onClick={() => handleDelete(item)} />
 							</li>
 						))}
-					<li
-						className={`${styles.item} ${styles.itemToAdd} ${addMode && 'addMode'}`}
-						onClick={() => {
-							setAddMode(true);
-						}}>
-						{!addMode ? (
-							<IconIncrease size="sm" />
-						) : (
-							<>
-								<input
-									className={styles.inputField}
-									value={inputValue}
-									onChange={e => {
-										setInputValue(e.target.value);
-									}}
-									onKeyDown={e => {
-										if (e.key === 'Enter') {
-											e.preventDefault();
+					{(maxSize === undefined || value.length < maxSize) && (
+						<li
+							className={`${styles.item} ${styles.itemToAdd} ${addMode && 'addMode'}`}
+							onClick={() => {
+								setAddMode(true);
+							}}>
+							{!addMode ? (
+								<IconIncrease size="sm" />
+							) : (
+								<>
+									<input
+										className={styles.inputField}
+										value={currentInputValue}
+										onChange={e => {
+											setCurrentInputValue(e.target.value);
+										}}
+										onKeyDown={e => {
+											if (e.key === 'Enter') {
+												e.preventDefault();
+												handleAdd();
+											}
+										}}
+										placeholder={placeholder}
+										autoFocus
+									/>
+									<IconIncrease
+										onClick={e => {
+											e.stopPropagation();
 											handleAdd();
-										}
-									}}
-									placeholder={placeholder}
-									autoFocus
-								/>
-								<IconIncrease
-									onClick={e => {
-										e.stopPropagation();
-										handleAdd();
-									}}
-									size="sm"
-								/>
-								<IconClose
-									onClick={e => {
-										e.stopPropagation();
-										handleCancel();
-									}}
-									size="sm"
-								/>
-							</>
-						)}
-					</li>
+										}}
+										size="sm"
+									/>
+									<IconClose
+										onClick={e => {
+											e.stopPropagation();
+											handleCancel();
+										}}
+										size="sm"
+									/>
+								</>
+							)}
+						</li>
+					)}
 				</ul>
+				<input name={name} value={JSON.stringify(value)} type="hidden" ref={ref} />
 			</div>
 		);
 	}

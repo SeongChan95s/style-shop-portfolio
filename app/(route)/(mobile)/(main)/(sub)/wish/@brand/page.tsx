@@ -3,15 +3,15 @@
 import { BrandCard } from '@/app/components/brand';
 import { getWishBrandsWithProductBySession } from '@/app/services/wish/getWishBrandsBySession';
 import { ErrorDisplay } from '@/app/components/system';
-import { Brand } from '@/app/types';
-import styles from '../wish.module.scss';
 import { useInViewInfiniteQuery } from '@/app/hooks/useInfiniteScroll';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { Skeleton } from '@/app/components/common/Skeleton';
+import styles from '../wish.module.scss';
 
 export default function BrandWishPage() {
 	const limit = 2;
 
-	const { data, error, hasNextPage, fetchNextPage } = useInfiniteQuery({
+	const { data, error, isPending, hasNextPage, fetchNextPage } = useInfiniteQuery({
 		queryFn: async ({ pageParam: skip }) =>
 			getWishBrandsWithProductBySession({ skip, limit }),
 		queryKey: ['wish', 'brand', 'product'],
@@ -31,6 +31,10 @@ export default function BrandWishPage() {
 
 	const pages = data?.pages.filter(page => page.success);
 	const brands = pages && pages.flatMap(page => page.data);
+
+	if (isPending) {
+		return <Skeleton fill />;
+	}
 
 	if (error) {
 		return <ErrorDisplay message={error.message} />;

@@ -89,12 +89,12 @@ export async function GET(req: NextRequest) {
 						viewsData: 0
 					}
 				},
-				{
-					$sample: { size: finalLimit }
-				},
 				...sort,
 				...skip,
 				...groupLimitPipe,
+				{
+					$sample: { size: finalLimit }
+				},
 				{
 					$lookup: {
 						from: 'productItems',

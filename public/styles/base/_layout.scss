@@ -110,10 +110,12 @@ main {
 // column layout
 [class^='column'] {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 0.6rem;
 
 	.columnItem {
 		position: relative;
+		flex: none;
 	}
 }
 .column1 {
@@ -123,16 +125,16 @@ main {
 }
 .column2 {
 	.columnItem {
-		width: 50% !important;
+		width: calc(50% - 0.6rem) !important;
 	}
 }
 .column3 {
 	.columnItem {
-		width: 33.33% !important;
+		width: calc(33.33% - 0.4rem) !important;
 	}
 }
 .column4 {
 	.columnItem {
-		width: 25% !important;
+		width: calc(25% - 0.45rem) !important;
 	}
 }

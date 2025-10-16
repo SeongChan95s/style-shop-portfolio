@@ -14,7 +14,7 @@ import { Magazine } from '@/app/types';
 import styles from './../../../../admin.module.scss';
 import { convertImagePickerItems } from '@/app/components/common/ImagePicker/ImagePicker.utils';
 import { useForm, Controller } from 'react-hook-form';
-import { updateContent } from '@/app/services/contents/updateContent';
+import { updateMagazine } from '@/app/services/contents/updateMagazine';
 import ObjectId from 'bson-objectid';
 import { StackField } from '@/app/components/common/StackField';
 
@@ -64,7 +64,7 @@ export default function MagazineForm({
 	});
 
 	const onSubmit = async (data: MagazineFormData) => {
-		await updateContent(data, isNew);
+		await updateMagazine(data, isNew);
 		queryClient.invalidateQueries({
 			queryKey: ['magazine']
 		});
@@ -144,6 +144,7 @@ export default function MagazineForm({
 										{...field}
 										label="상품 그룹 ID"
 										placeholder="상품 그룹 ID 입력"
+										maxSize={2}
 									/>
 								)}
 							/>

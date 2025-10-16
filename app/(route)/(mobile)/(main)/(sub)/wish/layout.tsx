@@ -6,6 +6,7 @@ import { createTransitionClassNames } from '@/app/utils/convert';
 import styles from './wish.module.scss';
 import { getWishCountByNameAndSession } from '@/app/services/wish/getWishCountByNameAndSession';
 import { useQueries } from '@tanstack/react-query';
+import { Suspense } from 'react';
 
 interface WishLayoutProps {
 	product: React.ReactNode;
@@ -46,10 +47,10 @@ export default function WishPage({ product, brand, children }: WishLayoutProps) 
 
 				<Tab.Body className={styles.tabBody}>
 					<Tab.Item className={styles.tabItem} eventKey="product">
-						{product}
+						<Suspense>{product}</Suspense>
 					</Tab.Item>
 					<Tab.Item className={styles.tabItem} eventKey="brand">
-						{brand}
+						<Suspense fallback={<div>로딩!!!!!!!!!!!!!</div>}>{brand}</Suspense>
 					</Tab.Item>
 				</Tab.Body>
 			</Tab>

@@ -11,7 +11,7 @@ import styles from '../wish.module.scss';
 export default function ProductWishPage() {
 	const limit = 4;
 
-	const { data, error, hasNextPage, fetchNextPage } = useInfiniteQuery({
+	const { data, error, isPending, hasNextPage, fetchNextPage } = useInfiniteQuery({
 		queryFn: async ({ pageParam: skip }) =>
 			await getWishesWithProductsByUser({
 				skip,
@@ -35,6 +35,17 @@ export default function ProductWishPage() {
 	const pages = data?.pages.filter(page => page.success);
 	const products = pages && pages.flatMap(page => page.data);
 
+	if (isPending) {
+		return (
+			<div className="column2">
+				<ProductCard.Skeleton className="columnItem" />
+				<ProductCard.Skeleton className="columnItem" />
+				<ProductCard.Skeleton className="columnItem" />
+				<ProductCard.Skeleton className="columnItem" />
+			</div>
+		);
+	}
+
 	if (error) {
 		return <ErrorDisplay message={error.message} />;
 	}
@@ -43,7 +54,6 @@ export default function ProductWishPage() {
 		<section className={`${styles.wishProduct}`}>
 			<div className="inner">
 				<h3 className="hidden">위시 상품 목록</h3>
-
 				<ul className={styles.productWrap}>
 					{products &&
 						products.map((product: ProductNested, i: number) =>

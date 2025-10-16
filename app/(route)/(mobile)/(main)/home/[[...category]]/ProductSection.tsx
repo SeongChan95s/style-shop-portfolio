@@ -34,7 +34,7 @@ ProductSection.Skeleton = function ProductSectionSkeleton() {
 				</div>
 			</header>
 			<div className="inner">
-				<div className="column4">
+				<div className="column3">
 					{Array.from({ length: 3 }).map((_, i) => (
 						<ProductCard.Skeleton key={i} className="columnItem" />
 					))}
