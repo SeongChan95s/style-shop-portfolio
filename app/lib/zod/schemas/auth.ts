@@ -1,4 +1,5 @@
 import { regEmail, regPassword } from '@/app/constants';
+import { regPhone } from '@/app/constants/constants';
 import z from 'zod';
 
 export const completeProfileSchema = z.object({
@@ -38,3 +39,8 @@ export const resetPasswordSchema = z
 		message: '비밀번호가 일치하지 않습니다.',
 		path: ['passwordConfirm']
 	});
+
+export const findMyIdSchema = z.object({
+	name: z.string(),
+	tel: z.string().regex(regPhone, '전화번호 형식이 아닙니다')
+});

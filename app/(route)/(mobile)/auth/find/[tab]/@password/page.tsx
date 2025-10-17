@@ -15,6 +15,7 @@ import { sendPasswordReset, verifyResetCode, resetPassword } from '@/app/service
 import { useSystemAlertStore } from '@/app/store';
 import { HTTPError } from '@/app/services/HTTPError';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@/app/components/common/Spinner';
 
 type FindPasswordForm = {
 	email: string;
@@ -178,7 +179,7 @@ export default function AuthFindPasswordPage() {
 							type="submit"
 							fill
 							disabled={isLoading}>
-							{isLoading ? '변경 중...' : '비밀번호 변경'}
+							{isLoading ? <Spinner size="xs" /> : '비밀번호 변경'}
 						</Button>
 					</form>
 				)}

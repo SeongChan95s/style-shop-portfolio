@@ -57,9 +57,9 @@
 		.textButtonWrap {
 			display: flex;
 			justify-content: flex-end;
-			margin-top: 1rem;
+			margin-top: 1.6rem;
 			gap: 0.7rem;
-			color: var(--gray-color-darker);
+			color: var(--gray-color-dark);
 			@include label-1;
 		}
 
@@ -168,9 +168,10 @@
 	padding-top: 2rem;
 
 	.tabHeader {
-		padding: 0 var(--inner);
+		margin: 0 var(--inner) 3rem;
 		height: 5rem;
 		justify-content: center;
+		border: 1px solid var(--gray-color-dim);
 		.tabPane {
 			flex: 1;
 			padding: 0 2.4rem;
@@ -183,11 +184,31 @@
 	}
 }
 
-.authFindPasswordPage {
-	:global(.inner) {
-		margin-top: 3rem;
+.authFindIdPage {
+	li ~ li {
+		margin-top: 2rem;
 	}
 
+	.resultWrap {
+		margin-top: 3rem;
+		.resultId {
+			padding: 1.4rem 0;
+			@include body-2;
+			text-align: center;
+			border: 1px solid var(--black-color-normal);
+
+			span {
+				@include title-1;
+			}
+		}
+
+		.loginButton {
+			margin-top: 2rem;
+		}
+	}
+}
+
+.authFindPasswordPage {
 	.message {
 		@include body-3;
 		padding: 1.2rem 1.6rem;
