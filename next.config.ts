@@ -8,22 +8,28 @@ const withPWA = withPWAInit({
 	register: false,
 	skipWaiting: true,
 	customWorkerDir: 'worker',
-	maximumFileSizeToCacheInBytes: 3000000 // 3mb
-	// exclude: [
-	// 	// add buildExcludes here
-	// 	({ asset }) => {
-	// 		if (
-	// 			asset.name.startsWith('server/') ||
-	// 			asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
-	// 		) {
-	// 			return true;
-	// 		}
-	// 		if (isDev() && !asset.name.startsWith('static/runtime/')) {
-	// 			return true;
-	// 		}
-	// 		return false;
-	// 	}
-	// ]
+	maximumFileSizeToCacheInBytes: 3000000, // 3mb
+	// @ts-expect-error - 타입 호환성 문제
+	exclude: [
+		// @ts-expect-error - 타입 호환성 문제
+		({ asset }) => {
+			if (
+				asset.name.startsWith('server/') ||
+				asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
+			) {
+				return true;
+			}
+			if (isDev() && !asset.name.startsWith('static/runtime/')) {
+				return true;
+			}
+			// Parallel Routes 제외
+			if (asset.name.includes('/@')) {
+				return true;
+			}
+			return false;
+		}
+	],
+	buildExcludes: [/\/@.*\/page.*\.js$/]
 });
 
 const nextConfig: NextConfig = {
@@ -64,4 +70,5 @@ const nextConfig: NextConfig = {
 	}
 };
 
-export default withPWA(nextConfig) as NextConfig;
+// @ts-expect-error - 타입 호환성 문제
+export default withPWA(nextConfig);

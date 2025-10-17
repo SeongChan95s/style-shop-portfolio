@@ -18,6 +18,7 @@ export const {
 	auth,
 	unstable_update: update // Beta!
 } = NextAuth({
+	trustHost: true,
 	providers: [
 		Credentials({
 			// 로그인 요청시

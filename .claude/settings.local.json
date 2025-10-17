@@ -11,7 +11,9 @@
       "Bash(npx tsc:*)",
       "Bash(curl:*)",
       "mcp__puppeteer__puppeteer_evaluate",
-      "Read(//Users/chanseong/Desktop/개인/Creative/project/style-shop-types/app/(route)/(mobile)/review/edit/[id]/**)"
+      "Read(//Users/chanseong/Desktop/개인/Creative/project/style-shop-types/app/(route)/(mobile)/review/edit/[id]/**)",
+      "Bash(npm run:*)",
+      "mcp__chrome-devtools__navigate_page"
     ],
     "deny": []
   },
