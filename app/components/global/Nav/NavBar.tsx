@@ -11,6 +11,7 @@ import { useMemo, useRef, useEffect, useState } from 'react';
 import SearchNavBox from '../../explorer/SearchNavBox';
 import styles from './NavBar.module.scss';
 import HomeLnb from './HomeLnb';
+import { sendNotification } from '@/app/actions/system';
 
 export interface NavBarProps {
 	display?: string;
@@ -87,6 +88,7 @@ export default function NavBar({ display = '' }: NavBarProps) {
 			behavior: 'smooth'
 		});
 	};
+
 	return (
 		<header id="navBar" className={`${styles.navBar} ${colorClass} ${scrollFlagClass}`}>
 			<div className={styles.container}>
@@ -132,7 +134,12 @@ export default function NavBar({ display = '' }: NavBarProps) {
 
 							{notify && (
 								<Link href="/" className={styles.button}>
-									<IconButton size="lg" feedback>
+									<IconButton
+										size="lg"
+										feedback
+										onClick={async () => {
+											await sendNotification({ title: '테스트', body: '내용' });
+										}}>
 										<IconNotifyOutlined className={styles.buttonNotify} />
 									</IconButton>
 								</Link>

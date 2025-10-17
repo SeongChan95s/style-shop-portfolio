@@ -8,22 +8,22 @@ const withPWA = withPWAInit({
 	register: false,
 	skipWaiting: true,
 	customWorkerDir: 'worker',
-	maximumFileSizeToCacheInBytes: 3000000, // 3mb
-	exclude: [
-		// add buildExcludes here
-		({ asset }) => {
-			if (
-				asset.name.startsWith('server/') ||
-				asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
-			) {
-				return true;
-			}
-			if (isDev() && !asset.name.startsWith('static/runtime/')) {
-				return true;
-			}
-			return false;
-		}
-	]
+	maximumFileSizeToCacheInBytes: 3000000 // 3mb
+	// exclude: [
+	// 	// add buildExcludes here
+	// 	({ asset }) => {
+	// 		if (
+	// 			asset.name.startsWith('server/') ||
+	// 			asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
+	// 		) {
+	// 			return true;
+	// 		}
+	// 		if (isDev() && !asset.name.startsWith('static/runtime/')) {
+	// 			return true;
+	// 		}
+	// 		return false;
+	// 	}
+	// ]
 });
 
 const nextConfig: NextConfig = {
@@ -64,4 +64,4 @@ const nextConfig: NextConfig = {
 	}
 };
 
-export default withPWA(nextConfig);
+export default withPWA(nextConfig) as NextConfig;
