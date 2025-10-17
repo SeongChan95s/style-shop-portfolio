@@ -4,6 +4,7 @@ export interface UserDB extends UserToken, UserOptionalInfo {
 	_id: string;
 	emailVerified?: true | null;
 	password: string;
+	tel?: string;
 }
 
 export interface UserToken {

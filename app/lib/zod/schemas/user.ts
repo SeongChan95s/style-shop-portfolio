@@ -1,4 +1,4 @@
-import { regPhone } from '@/app/constants/constants';
+import { regPhone, regName, regPassword } from '@/app/constants/constants';
 import z from 'zod';
 
 export const addressSchema = z.object({
@@ -16,4 +16,29 @@ export const addressSchema = z.object({
 	default: z.boolean()
 });
 
-// export type ShippingAddress = z.infer<typeof shippingAddressSchema>;
+export const updateUserSchema = z
+	.object({
+		name: z.string().regex(regName, '2글자 이상 입력해주세요.'),
+		tel: z.string().regex(regPhone, '전화번호 형식에 맞지 않습니다.'),
+		password: z
+			.string()
+			.optional()
+			.refine(val => !val || regPassword.test(val), {
+				message: '영문&숫자 조합 8자리 이상 입력해주세요.'
+			}),
+		passwordConfirm: z.string().optional()
+	})
+	.refine(
+		data => {
+			if (data.password && data.password.length > 0) {
+				return data.password === data.passwordConfirm;
+			}
+			return true;
+		},
+		{
+			message: '비밀번호가 일치하지 않습니다.',
+			path: ['passwordConfirm']
+		}
+	);
+
+export type UpdateUserFormData = z.infer<typeof updateUserSchema>;

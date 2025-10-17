@@ -75,7 +75,7 @@ export const {
 	},
 
 	callbacks: {
-		async signIn({ user, account, profile, email, credentials }) {
+		async signIn({ user, account }) {
 			// credentials 로그인
 			if (account?.provider === 'credentials') {
 				return true;

@@ -10,7 +10,7 @@ interface InputProps {
 	id?: string;
 	className?: string;
 	name?: string;
-	type?: 'text' | 'number' | 'email' | 'password';
+	type?: 'text' | 'number' | 'tel' | 'email' | 'password';
 	variant?: 'outlined' | 'filled' | 'dynamic';
 	size?: 'sm' | 'md' | 'lg';
 	value?: string;

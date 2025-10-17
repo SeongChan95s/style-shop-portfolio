@@ -1,24 +1,25 @@
 'use client';
 
-import { redirect } from 'next/navigation';
-import SubmitForm from '../SubmitForm';
-import { Form } from '@/app/components/common/Form';
+import { redirect, useRouter } from 'next/navigation';
 import { Input } from '@/app/components/common/Input';
-import { useCreateFormStore } from '@/app/components/common/Form/useForm';
-import { useStore } from 'zustand';
 import { useQuery } from '@tanstack/react-query';
-import { regName, regPassword } from '@/app/constants';
-import { useSubmitAction } from '@/app/hooks/async';
-import { updateUserAction } from '@/app/actions/user/updateUserAction';
 import { useSystemAlertStore } from '@/app/store';
-import { useViewTransition } from '@/app/hooks';
 import { FetchResponse } from '@/app/types';
 import { getUserBySession } from '@/app/services/user/getUserBySession';
+import { Form, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { UpdateUserFormData, updateUserSchema } from '@/app/lib/zod/schemas/user';
+import { z } from 'zod';
+import { Button } from '@/app/components/common/Button';
+import { Spinner } from '@/app/components/common/Spinner';
 import styles from './../user.module.scss';
+import { useEffect } from 'react';
+import { SubmitBar } from '@/app/components/global/AppBar';
 
 export default function UserPersonalPage() {
+	const router = useRouter();
 	const {
-		data: getUserResponse,
+		data: getUserResult,
 		isPending,
 		isError,
 		isSuccess
@@ -27,40 +28,60 @@ export default function UserPersonalPage() {
 		queryKey: ['user']
 	});
 
-	const store = useCreateFormStore();
-	const formData = useStore(store, state => state.formData);
-	const setFormData = useStore(store, state => state.setFormData);
-
-	const handleChangeFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setFormData({ [e.target.name]: e.target.value });
-	};
-
 	const pushAlert = useSystemAlertStore(state => state.push);
-	const { handleViewTransition } = useViewTransition();
 
-	const handleSubmitSuccess = (data: FetchResponse) => {
-		if (data.message) pushAlert(data.message);
-		if (data.success) handleViewTransition('back', 'prev');
-	};
-
-	const { handleSubmit } = useSubmitAction({
-		action: updateUserAction,
-		initialData: {},
-		onSuccess: handleSubmitSuccess
+	const {
+		register,
+		reset,
+		handleSubmit,
+		control,
+		formState: { errors, isSubmitting }
+	} = useForm<UpdateUserFormData>({
+		resolver: zodResolver(updateUserSchema),
+		defaultValues: {
+			name: '',
+			tel: '0',
+			password: '',
+			passwordConfirm: ''
+		}
 	});
 
-	if (isSuccess && !getUserResponse.success) redirect('/');
+	useEffect(() => {
+		if (getUserResult && getUserResult.success && getUserResult.data) {
+			const formData: UpdateUserFormData = {
+				name: getUserResult.data.name || '',
+				tel: String(getUserResult.data.tel || ''),
+				password: '',
+				passwordConfirm: ''
+			};
+			reset(formData);
+		}
+	}, [getUserResult, reset]);
+
+	const handleSuccess = async ({ response }: { response: Response }) => {
+		const result = await response.json();
+		console.log('result', result);
+		if (result.message) pushAlert(result.message);
+		if (result.success) router.back();
+	};
+
+	if (isSuccess && !getUserResult.success) redirect('/');
 	if (isError) redirect('/');
 	if (isPending) return <></>;
 
-	const user = getUserResponse.success ? getUserResponse.data : null;
+	const user = getUserResult.success ? getUserResult.data : null;
 
 	if (!user) redirect('/');
 
 	if (isSuccess)
 		return (
 			<div className={`${styles.personalInfoPage} sectionLayoutLg`}>
-				<Form className={styles.form} store={store} onSubmit={handleSubmit}>
+				<Form
+					className={styles.form}
+					method="put"
+					action="/api/user/updateUser"
+					control={control}
+					onSuccess={handleSuccess}>
 					<div className="inner">
 						<ul>
 							<li>
@@ -72,50 +93,38 @@ export default function UserPersonalPage() {
 								/>
 							</li>
 							<li>
+								<Input label="이름" error={errors.name?.message} {...register('name')} />
+							</li>
+							<li>
 								<Input
-									name="name"
-									label="이름"
-									defaultValue={user.name as string}
-									onChange={handleChangeFormData}
-								/>
-								<Form.Validation
-									name="name"
-									label="2글자 이상"
-									defaultValue={user.name as string}
-									onValidate={value => regName.test(value)}
+									type="tel"
+									label="휴대폰 번호"
+									placeholder="01012345678"
+									error={errors.tel?.message}
+									{...register('tel')}
 								/>
 							</li>
 							<li>
 								<Input
 									type="password"
-									name="password"
 									label="비밀번호"
-									onChange={handleChangeFormData}
-								/>
-								<Form.Validation
-									name="password"
-									label="영문&숫자 조합 8자리 이상"
-									onValidate={value => regPassword.test(value)}
+									placeholder="변경하지 않으려면 비워두세요"
+									error={errors.password?.message}
+									{...register('password')}
 								/>
 							</li>
 							<li>
 								<Input
 									type="password"
-									name="passwordConfirm"
 									label="비밀번호 확인"
-									onChange={handleChangeFormData}
-								/>
-								<Form.Validation
-									onValidate={value =>
-										typeof formData.password != 'undefined' && formData.password == value
-									}
-									name="passwordConfirm"
-									label="비밀번호 일치"
+									placeholder="변경하지 않으려면 비워두세요"
+									error={errors.passwordConfirm?.message}
+									{...register('passwordConfirm')}
 								/>
 							</li>
 						</ul>
-						<SubmitForm />
 					</div>
+					<SubmitBar label={isSubmitting ? <Spinner size="xs" /> : '저장'} />
 				</Form>
 			</div>
 		);

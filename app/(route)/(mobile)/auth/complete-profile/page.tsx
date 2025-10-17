@@ -10,8 +10,8 @@ import { useSystemAlertStore } from '@/app/store';
 import { z } from 'zod';
 import { completeProfile } from '@/app/services/auth';
 import { completeProfileSchema } from '@/app/lib/zod/schemas/auth';
-import styles from './../auth.module.scss';
 import { Spinner } from '@/app/components/common/Spinner';
+import styles from './../auth.module.scss';
 
 export default function CompleteProfilePage() {
 	const searchParams = useSearchParams();
