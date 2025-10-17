@@ -36,7 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 		name,
 		type = 'text',
 		size = 'md',
-		value: controlledValue,
+		value,
 		defaultValue,
 		label,
 		button,
@@ -60,10 +60,24 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 	const handleFocus = useCallback(() => setIsFocused(true), []);
 	const handleBlur = useCallback(() => setIsFocused(false), []);
 
+	const handleRef = useCallback(
+		(element: HTMLInputElement | null) => {
+			if (typeof ref === 'function') {
+				ref(element);
+			} else if (ref) {
+				ref.current = element;
+			}
+
+			if (element?.value) {
+				setIsEntered(element.value.length >= 1);
+			}
+		},
+		[ref]
+	);
+
 	useEffect(() => {
-		if (defaultValue) {
-			setIsEntered(defaultValue.length >= 1);
-		}
+		if (defaultValue) setIsEntered(defaultValue.length >= 1);
+		if (value !== undefined) setIsEntered(value.length >= 1);
 	}, []);
 
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,12 +108,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 				disable={disabled}
 				button={button}>
 				<input
-					ref={ref}
+					ref={handleRef}
 					type={type}
 					id={id}
 					name={name}
 					placeholder={placeholder}
-					value={controlledValue}
+					value={value}
 					maxLength={maxLength}
 					disabled={disabled}
 					defaultValue={defaultValue}

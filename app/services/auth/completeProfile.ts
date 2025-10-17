@@ -1,3 +1,4 @@
+import { FetchResponse } from '@/app/types';
 import { HTTPError } from '../HTTPError';
 interface CompleteProfileRequest {
 	provider: string;
@@ -17,7 +18,9 @@ interface CompleteProfileData {
 	name: string;
 }
 
-export async function completeProfile(data: CompleteProfileData): Promise<CompleteProfileResponse> {
+export async function completeProfile(
+	data: CompleteProfileData
+): Promise<FetchResponse<CompleteProfileResponse>> {
 	const requestData: CompleteProfileRequest = {
 		provider: data.provider,
 		providerId: data.providerId,

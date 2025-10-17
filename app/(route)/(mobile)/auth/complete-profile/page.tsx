@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { completeProfile } from '@/app/services/auth';
 import { completeProfileSchema } from '@/app/lib/zod/schemas/auth';
 import styles from './../auth.module.scss';
+import { Spinner } from '@/app/components/common/Spinner';
 
 export default function CompleteProfilePage() {
 	const searchParams = useSearchParams();
@@ -53,7 +54,7 @@ export default function CompleteProfilePage() {
 			});
 
 			alertPush(result.message);
-			router.push('/');
+			if (result.success) router.push('/');
 		} catch (error) {
 			if (error instanceof Error) {
 				alertPush(error.message);
@@ -101,11 +102,9 @@ export default function CompleteProfilePage() {
 							variant="dynamic"
 							className={styles.input}
 							readOnly={!missingFields.includes('email')}
+							error={errors.email ? errors.email.message : undefined}
 							{...register('email')}
 						/>
-						{errors.email && (
-							<span className={styles.errorMessage}>{errors.email.message}</span>
-						)}
 					</div>
 
 					<div className={styles.inputWrapper}>
@@ -115,17 +114,14 @@ export default function CompleteProfilePage() {
 							placeholder="닉네임을 입력하세요"
 							variant="dynamic"
 							className={styles.input}
-							readOnly={!missingFields.includes('name')}
+							error={errors.name ? errors.name.message : undefined}
 							{...register('name')}
 						/>
-						{errors.name && (
-							<span className={styles.errorMessage}>{errors.name.message}</span>
-						)}
 					</div>
 
 					<div className={styles.buttonGroup}>
 						<Button type="submit" size="lg" disabled={isSubmitting} fill>
-							{isSubmitting ? '등록 중...' : '저장'}
+							{isSubmitting ? <Spinner size="xs" /> : '저장'}
 						</Button>
 
 						<Button
