@@ -15,7 +15,7 @@ export const metadata = {
 	description: '설명',
 	keywords: ['옷', '의류', '패션', '소품', '스타일'],
 	authors: [{ name: 'SeongChan', url: 'https://github.com/SeongChan95s' }],
-	icons: { icon: '/settings/favicon.png' },
+	icons: { icon: '/settings/favicon.ico' },
 	robots: {
 		index: false,
 		follow: false
