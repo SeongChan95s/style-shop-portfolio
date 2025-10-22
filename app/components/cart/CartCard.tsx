@@ -138,7 +138,7 @@ function CartCard({ cart }: CartCardProps) {
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation({
-		mutationFn: deleteCartById,
+		mutationFn: (cartId: string) => deleteCartById(cartId),
 		onSuccess: () => {
 			setIsVisible(false);
 			queryClient.invalidateQueries({ queryKey: ['cart-count'] });

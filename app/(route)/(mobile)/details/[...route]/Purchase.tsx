@@ -34,7 +34,7 @@ function Purchase({ product }: PurchaseAppBarProps) {
 
 	const queryClient = useQueryClient();
 	const cartMutation = useMutation({
-		mutationFn: addCart,
+		mutationFn: (productItemId: string) => addCart(productItemId),
 		onSuccess: result => {
 			queryClient.invalidateQueries({ queryKey: ['cart'] });
 			if (result.message) alertPush(result.message);
