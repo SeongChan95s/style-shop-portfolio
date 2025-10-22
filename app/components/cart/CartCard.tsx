@@ -84,9 +84,11 @@ function CartCounter({
 	const queryClient = useQueryClient();
 	const mutation = useMutation({
 		mutationFn: handleCartCount,
-		onSuccess: response => {
-			queryClient.invalidateQueries({ queryKey: ['carts'] });
-			if (response?.message == '장바구니에서 상품을 삭제했습니다.') {
+		onSuccess: result => {
+			queryClient.invalidateQueries({ queryKey: ['cart'] });
+
+			if (result) useSystemAlertStore.getState().push(result.message);
+			if (result?.message == '장바구니에서 상품을 삭제했습니다.') {
 				setIsVisible(false);
 			}
 		}
@@ -141,7 +143,7 @@ function CartCard({ cart }: CartCardProps) {
 		mutationFn: (cartId: string) => deleteCartById(cartId),
 		onSuccess: () => {
 			setIsVisible(false);
-			queryClient.invalidateQueries({ queryKey: ['cart-count'] });
+			queryClient.invalidateQueries({ queryKey: ['cart'] });
 			deleteCartState(cart);
 		},
 		onError: e => {
@@ -150,8 +152,7 @@ function CartCard({ cart }: CartCardProps) {
 	});
 
 	const discountedPrice = Math.floor(
-		cart.price.cost -
-		(cart.price.cost * cart.price.discount) / 100
+		cart.price.cost - (cart.price.cost * cart.price.discount) / 100
 	).toLocaleString();
 	const originalPrice = Math.floor(cart.price.cost).toLocaleString();
 

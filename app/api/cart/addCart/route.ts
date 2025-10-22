@@ -11,11 +11,17 @@ export async function PUT(req: NextRequest) {
 		const session = await getSession();
 		const userEmail = session?.user?.email;
 		if (!session) {
-			return NextResponse.json({ message: '로그인이 필요합니다.' }, { status: 400 });
+			return NextResponse.json(
+				{ success: false, message: '로그인이 필요합니다.' },
+				{ status: 200 }
+			);
 		}
 		let productItemId = body?.productItemId;
 		if (!productItemId)
-			return NextResponse.json({ message: 'productItemId가 없습니다.' }, { status: 400 });
+			return NextResponse.json(
+				{ success: false, message: 'productItemId가 없습니다.' },
+				{ status: 400 }
+			);
 		productItemId = new ObjectId(body.productItemId as string) as ObjectId;
 
 		const cartBase = { userEmail, productItemId };

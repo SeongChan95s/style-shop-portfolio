@@ -117,6 +117,7 @@ export default function ReviewList({ productGroupId, productItemId }: ReviewList
 	};
 
 	const matchQuery = buildMatchQuery();
+	const limit = 4;
 
 	const {
 		data: reviewData,
@@ -130,13 +131,12 @@ export default function ReviewList({ productGroupId, productItemId }: ReviewList
 				groupId: productGroupId,
 				match: matchQuery,
 				sort,
-				limit: 10,
+				limit,
 				skip
 			}),
 		queryKey: ['review', productGroupId, sort, matchQuery],
 		initialPageParam: 0,
 		getNextPageParam: (lastPage, pages) => {
-			const limit = 10;
 			if (!lastPage.success) {
 				return undefined;
 			}

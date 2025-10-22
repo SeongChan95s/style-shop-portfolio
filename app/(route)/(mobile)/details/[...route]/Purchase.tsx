@@ -30,7 +30,7 @@ function Purchase({ product }: PurchaseAppBarProps) {
 		...item.option,
 		stock: String(item.stock)
 	}));
-	const { optionKeys, handleOption, filteredOptions } = useOptionFilter(options);
+	const { optionKeys, handleOption, filteredOptions, resetOptions } = useOptionFilter(options);
 
 	const queryClient = useQueryClient();
 	const cartMutation = useMutation({
@@ -95,7 +95,12 @@ function Purchase({ product }: PurchaseAppBarProps) {
 			<BottomSheet
 				className={styles.purchaseSelectSheet}
 				state={bottomSheetState}
-				onChange={state => setBottomSheetState(state)}>
+				onChange={state => {
+					setBottomSheetState(state);
+					if (state === 'closed') {
+						resetOptions();
+					}
+				}}>
 				<form onSubmit={submitOption}>
 					<ul className={styles.selectWrap}>
 						{optionKeys.map(key => (

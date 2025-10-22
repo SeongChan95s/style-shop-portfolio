@@ -4,13 +4,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { IconMoreVertical } from '../common/Icon';
 import { Menu } from '../common/Menu';
-import { useSession } from '@/app/providers';
 
 interface ReviewMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 	className?: string;
 	productItemId: string;
 	orderId: string;
 	reviewId: string;
+	isAuthor: boolean;
 	size?: 'sm' | 'md' | 'lg';
 	setIsVisible?: (state: boolean) => void;
 }
@@ -19,14 +19,13 @@ export default function ReviewMenu({
 	className = '',
 	reviewId,
 	size = 'md',
+	isAuthor,
 	productItemId,
 	orderId,
 	setIsVisible
 }: ReviewMenuProps) {
 	const router = useRouter();
 
-	const session = useSession();
-	const isAuthor = !!session;
 	const pushAlert = useSystemAlertStore(state => state.push);
 
 	const hideReview = () => {

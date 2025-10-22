@@ -49,5 +49,9 @@ export const useOptionFilter = (options: OptionsWithStock[]) => {
 		}));
 	};
 
-	return { optionKeys, selectedOptions, handleOption, filteredOptions };
+	const resetOptions = () => {
+		setSelectedOptions({});
+	};
+
+	return { optionKeys, selectedOptions, handleOption, filteredOptions, resetOptions };
 };

@@ -17,6 +17,7 @@ import ReviewMenu from './ReviewMenu';
 export default function ReviewCard({
 	review,
 	wrap,
+	isAuthor,
 	onClick
 }: {
 	review: Review<string>;
@@ -77,6 +78,7 @@ export default function ReviewCard({
 						size="sm"
 						reviewId={review._id.toString()}
 						setIsVisible={setIsVisible}
+						isAuthor={isAuthor}
 					/>
 				</div>
 
