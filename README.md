@@ -40,37 +40,62 @@
 
 ### Tool
 
-- figma
-- photoshop
-- illustrator
-- visual code
+![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white)
+![Photoshop](https://img.shields.io/badge/Photoshop-31A8FF?logo=adobephotoshop&logoColor=white)
+![Illustrator](https://img.shields.io/badge/Illustrator-FF9A00?logo=adobeillustrator&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?logo=visualstudiocode&logoColor=white)
 
 ### Language
 
-- html, css, sass(scss), javascript, typescript
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?logo=sass&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 
 ### Framework
 
-- next.js@15.4.6
-- react@19.0.0
+![Next.js](https://img.shields.io/badge/Next.js-15.4.6-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black)
 
 ### Library
 
-- State : zustand, react context
-- Code : eslint, prettier, stylelint
-- Auth: next-auth@5.0.0-beta.25, bcrypt
-- DB : mongodb, aws-sdk
-- UI : swiper, svgr, react-transition-group, @tanstack/react-table
-- form: react-hook-form, zod
-- fetch: @tanstack/react-query, react-error-boundary
-- util: immer, lodash, http-status, nodemailer, react-daum-postcode
+**State**  
+![Zustand](https://img.shields.io/badge/Zustand-443E38?logo=react&logoColor=white)
+![React Context](https://img.shields.io/badge/React%20Context-61DAFB?logo=react&logoColor=black)
+
+**Code Quality**  
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?logo=prettier&logoColor=black)
+![Stylelint](https://img.shields.io/badge/Stylelint-263238?logo=stylelint&logoColor=white)
+
+**Auth**  
+![NextAuth](https://img.shields.io/badge/NextAuth-5.0.0--beta.25-000000?logo=nextdotjs&logoColor=white)
+
+**Database**  
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![AWS S3](https://img.shields.io/badge/AWS%20S3-569A31?logo=amazons3&logoColor=white)
+
+**UI**  
+![Swiper](https://img.shields.io/badge/Swiper-6332F6?logo=swiper&logoColor=white)
+
+**Form**  
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-EC5990?logo=reacthookform&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-3E67B1?logo=zod&logoColor=white)
+
+**Data Fetching**  
+![TanStack Query](https://img.shields.io/badge/TanStack%20Query-FF4154?logo=reactquery&logoColor=white)
+
+**Utility**  
+![Lodash](https://img.shields.io/badge/Lodash-3492FF?logo=lodash&logoColor=white)
+![Nodemailer](https://img.shields.io/badge/Nodemailer-339933?logo=nodedotjs&logoColor=white)
 
 ## Features
 
 - 웹앱 : PWA 웹앱으로 빠르고 편리한 사용(next-pwa, web-push)
   - OS별(window, android, iOS) 앱 설치 유도 메시지
   - ios-safe-area 대응 풀스크린으로 쾌적한 사용
-  - 서비스워커로 정적파일을 캐싱하여 속도 향상 및 이벤트 푸시알림
+  - 서비스워커로 정적파일을 캐싱하여 속도 향상
 - 인증 : 멤버십 서비스
   - JWT&OAuth 인증 방식으로 타 서비스와 연동하여 편리한 로그인 및 회원가입(next-auth)
   - 비밀번호 암호화 관리(bcrypt)

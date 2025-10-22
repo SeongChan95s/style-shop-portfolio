@@ -13,12 +13,14 @@ import {
 } from '@/app/components/common/Icon';
 import { WishButton } from '@/app/components/wish';
 import ReviewMenu from '@/app/components/review/ReviewMenu';
+import { useSession } from '@/app/providers';
 
 interface ReviewContentProps {
 	review: Review<string>;
 }
 
 export default function ReviewContent({ review }: ReviewContentProps) {
+	const session = useSession();
 	const { data } = useSuspenseQuery({
 		queryFn: () => getProductNestedByItemId(review.productItemId),
 		queryKey: ['product', review.productItemId]
@@ -36,6 +38,8 @@ export default function ReviewContent({ review }: ReviewContentProps) {
 
 	if (!data.success) return <></>;
 	const product = data.data;
+
+	const isAuthor = session?.user?.email === review.author.email;
 
 	return (
 		<section className={styles.reviewContent}>
@@ -79,6 +83,7 @@ export default function ReviewContent({ review }: ReviewContentProps) {
 						productItemId={review.productItemId}
 						orderId={review.orderId}
 						reviewId={review._id}
+						isAuthor={isAuthor}
 					/>
 				</div>
 				<div className={styles.contents}>
